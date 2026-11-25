@@ -1,747 +1,1272 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exam Vault — Smart PYQs, Repeated Questions & CBT Mock Tests</title>
+  <title>Exam Vault — Free Mock Tests, PYQ Question Papers &amp; Cheat Sheets</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #09090b;
-      --bg-elevated: #111115;
-      --surface: rgba(24, 24, 29, 0.72);
-      --surface-solid: #18181d;
-      --surface-hover: #202027;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(255, 255, 255, 0.16);
-      --text: #fafafa;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --accent: #6366f1;
-      --accent-soft: rgba(99, 102, 241, 0.14);
-      --accent-glow: rgba(99, 102, 241, 0.35);
-      --emerald: #10b981;
-      --emerald-soft: rgba(16, 185, 129, 0.14);
-      --amber: #f59e0b;
-      --amber-soft: rgba(245, 158, 11, 0.14);
-      --rose: #f43f5e;
-      --rose-soft: rgba(244, 63, 94, 0.14);
-      --shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.6);
-      --radius: 16px;
-    }
-
-    [data-theme="light"] {
       --bg: #f8fafc;
-      --bg-elevated: #ffffff;
-      --surface: rgba(255, 255, 255, 0.85);
-      --surface-solid: #ffffff;
-      --surface-hover: #f1f5f9;
-      --border: rgba(15, 23, 42, 0.08);
-      --border-strong: rgba(15, 23, 42, 0.18);
-      --text: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
-      --accent: #4f46e5;
-      --accent-soft: rgba(79, 70, 229, 0.1);
-      --accent-glow: rgba(79, 70, 229, 0.2);
-      --shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.12);
+      --white: #ffffff;
+      --subtle: #f1f5f9;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --ink: #0f172a;
+      --ink-2: #334155;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --emerald: #059669;
+      --emerald-soft: #ecfdf5;
+      --amber: #d97706;
+      --amber-soft: #fffbeb;
+      --rose: #e11d48;
+      --rose-soft: #fff1f2;
+      --purple: #7c3aed;
+      --purple-soft: #f5f3ff;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 8px 24px -6px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 20px 40px -12px rgba(15, 23, 42, 0.12);
+      --radius: 14px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
       line-height: 1.55;
-      min-height: 100vh;
-      overflow-x: hidden;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      -webkit-font-smoothing: antialiased;
     }
-
-    /* Ambient Background Mesh */
-    .ambient-bg {
-      position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
-    }
-    .ambient-bg::before {
-      content: ""; position: absolute; top: -20%; left: -10%; width: 55vw; height: 55vw;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, transparent 65%);
-      filter: blur(60px);
-    }
-    .ambient-bg::after {
-      content: ""; position: absolute; bottom: -25%; right: -10%; width: 50vw; height: 50vw;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.10) 0%, transparent 65%);
-      filter: blur(60px);
-    }
-
+    h1, h2, h3, h4, .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; }
     .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Top Live Notification Strip */
+    .alert-strip {
+      background: #0f172a;
+      color: #f8fafc;
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .alert-badge {
+      background: #22c55e;
+      color: #052e16;
+      font-weight: 700;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .alert-timer {
+      font-family: 'JetBrains Mono', monospace;
+      color: #93c5fd;
+      font-weight: 700;
+    }
+    .alert-strip a { color: #ffffff; text-decoration: underline; font-weight: 600; }
 
     /* Navbar */
     header {
-      position: sticky; top: 0; z-index: 40;
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      background: color-mix(in srgb, var(--bg) 78%, transparent);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
-      display: flex; align-items: center; justify-content: space-between; gap: 14px;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); cursor: pointer; }
-    .brand-icon {
-      width: 34px; height: 34px; border-radius: 10px;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      display: grid; place-items: center; color: #fff;
-      box-shadow: 0 8px 20px -4px var(--accent-glow);
-    }
-    .brand-name { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.03em; }
-    .brand-name span { color: var(--accent); }
-
-    .nav-actions { display: flex; align-items: center; gap: 10px; }
-    .cmd-trigger {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--surface); border: 1px solid var(--border);
-      color: var(--text-secondary); padding: 7px 12px; border-radius: 10px;
-      font-size: 0.84rem; cursor: pointer; transition: all 0.2s;
-    }
-    .cmd-trigger:hover { border-color: var(--border-strong); color: var(--text); }
-    .kbd {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      padding: 2px 6px; border-radius: 5px; color: var(--text-muted);
-    }
-    .icon-btn {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: var(--surface); border: 1px solid var(--border);
-      color: var(--text-secondary); display: grid; place-items: center;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .icon-btn:hover { border-color: var(--border-strong); color: var(--text); transform: translateY(-1px); }
-
-    .readiness-pill {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--emerald-soft); border: 1px solid rgba(16, 185, 129, 0.25);
-      color: var(--emerald); padding: 6px 12px; border-radius: 99px;
-      font-size: 0.78rem; font-weight: 700;
-    }
-
-    /* Main Container */
-    .container { max-width: 1180px; margin: 0 auto; padding: 28px 20px 80px; }
-
-    /* Bento Hero */
-    .bento-hero {
-      display: grid; grid-template-columns: 1.55fr 1fr; gap: 18px; margin-bottom: 28px;
-    }
-    @media (max-width: 880px) { .bento-hero { grid-template-columns: 1fr; } .cmd-trigger span.label { display: none; } }
-
-    .hero-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 22px; padding: 28px; position: relative; overflow: hidden;
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
     }
-    .live-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--rose-soft); border: 1px solid rgba(244, 63, 94, 0.25);
-      color: var(--rose); font-size: 0.75rem; font-weight: 700;
-      padding: 5px 12px; border-radius: 99px; margin-bottom: 16px;
+    .nav-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
-    .pulse-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--rose);
-      animation: pulse 1.6s infinite;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--ink);
     }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(244, 63, 94, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: 0 6px 14px -4px rgba(37, 99, 235, 0.45);
+    }
+    .brand-name { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.03em; }
+    .brand-name span { color: var(--primary); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+    }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--ink-2);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .nav-btn:hover { background: var(--subtle); color: var(--ink); }
+    .nav-btn.active { background: var(--primary-soft); color: var(--primary); }
+
+    .exam-select {
+      background: var(--subtle);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+    }
+    @media (max-width: 780px) {
+      .nav-wrap { height: auto; padding: 12px 16px; flex-wrap: wrap; }
+      .nav-links { order: 3; width: 100%; padding-top: 8px; border-top: 1px solid var(--border); }
     }
 
-    h1 {
-      font-size: clamp(1.75rem, 3.2vw, 2.55rem); font-weight: 800;
-      letter-spacing: -0.04em; line-height: 1.12; margin-bottom: 12px;
+    /* Main Layout */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
     }
-    .gradient-text {
-      background: linear-gradient(120deg, #818cf8 0%, #c084fc 45%, #34d399 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .hero-sub { color: var(--text-secondary); font-size: 0.95rem; max-width: 540px; margin-bottom: 22px; }
+    .view { display: none; animation: fadeIn 0.2s ease; }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Search Bar */
-    .search-wrap { position: relative; margin-bottom: 18px; }
-    .search-wrap svg {
-      position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-      color: var(--text-muted); pointer-events: none;
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 44px 36px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
     }
-    .search-input {
-      width: 100%; padding: 14px 16px 14px 44px;
-      border-radius: 14px; border: 1px solid var(--border-strong);
-      background: var(--bg-elevated); color: var(--text);
-      font-size: 0.95rem; font-family: inherit; outline: none;
-      transition: all 0.2s;
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% -20%, rgba(37, 99, 235, 0.08), transparent 60%);
+      pointer-events: none;
     }
-    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 5px 14px;
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(1.9rem, 3.6vw, 2.85rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      color: var(--ink);
+      max-width: 760px;
+      margin: 0 auto 14px;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 600px;
+      margin: 0 auto 26px;
+    }
 
-    /* Exam Switcher Pills */
-    .exam-pills { display: flex; gap: 8px; flex-wrap: wrap; }
-    .exam-pill {
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      color: var(--text-secondary); padding: 7px 14px; border-radius: 99px;
-      font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .exam-pill:hover { border-color: var(--border-strong); color: var(--text); }
-    .exam-pill.active {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-      box-shadow: 0 8px 20px -6px var(--accent-glow);
-    }
-    .pill-soon { font-size: 0.65rem; opacity: 0.7; background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 99px; }
-
-    /* Right Bento: Exam Radar */
-    .radar-card {
-      background: linear-gradient(155deg, rgba(99, 102, 241, 0.14) 0%, var(--surface-solid) 60%);
-      border: 1px solid var(--border); border-radius: 22px; padding: 24px;
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .radar-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-    .radar-select {
-      background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
-      padding: 5px 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; outline: none; cursor: pointer;
-    }
-    .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; }
-    .t-box {
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      border-radius: 12px; padding: 12px 6px; text-align: center;
-    }
-    .t-num { font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 700; display: block; line-height: 1.1; }
-    .t-lbl { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-top: 4px; display: block; }
-    .shift-bar {
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      border-radius: 12px; padding: 10px 12px; font-size: 0.78rem; color: var(--text-secondary);
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
-    }
-    .radar-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .mini-link {
-      text-decoration: none; text-align: center; padding: 9px; border-radius: 10px;
-      background: var(--surface-hover); border: 1px solid var(--border);
-      color: var(--text); font-size: 0.78rem; font-weight: 600; transition: all 0.2s;
-    }
-    .mini-link:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* Filter Bar */
-    .section-bar {
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
-    }
-    .stream-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-    .stream-btn {
-      background: transparent; border: 1px solid transparent; color: var(--text-secondary);
-      padding: 6px 12px; border-radius: 9px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; transition: all 0.18s;
-    }
-    .stream-btn:hover { background: var(--surface); color: var(--text); }
-    .stream-btn.active { background: var(--surface-solid); border-color: var(--border-strong); color: var(--text); }
-    .result-count { font-size: 0.82rem; color: var(--text-muted); }
-
-    /* Subject Cards Grid */
-    .subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(305px, 1fr)); gap: 16px; }
-    .s-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 18px; padding: 20px; cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+    .hero-search {
+      max-width: 560px;
+      margin: 0 auto 28px;
       position: relative;
     }
-    .s-card:hover {
-      transform: translateY(-4px); border-color: rgba(99, 102, 241, 0.5);
-      box-shadow: 0 18px 40px -15px rgba(99, 102, 241, 0.22);
+    .hero-search input {
+      width: 100%;
+      padding: 15px 18px 15px 46px;
+      border-radius: 14px;
+      border: 1px solid var(--border-strong);
+      background: var(--white);
+      font-size: 0.96rem;
+      font-family: inherit;
+      color: var(--ink);
+      box-shadow: var(--shadow-md);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .s-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-    .code-chip {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; font-weight: 700;
-      background: var(--accent-soft); color: var(--accent);
-      padding: 4px 10px; border-radius: 7px;
+    .hero-search input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
     }
-    .stream-tag { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
-    .s-title { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 8px; }
-    .s-desc { font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; }
+    .hero-search svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
 
-    .s-stats { display: flex; gap: 12px; font-size: 0.78rem; color: var(--text-secondary); flex-wrap: wrap; }
-    .s-stat { display: inline-flex; align-items: center; gap: 5px; }
-    .s-stat.hot { color: var(--amber); font-weight: 600; }
-
-    .progress-wrap { margin-top: 2px; }
-    .progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 5px; }
-    .progress-track { height: 6px; background: var(--bg-elevated); border-radius: 99px; overflow: hidden; border: 1px solid var(--border); }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--emerald)); border-radius: 99px; transition: width 0.35s ease; }
-
-    .card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
-    .open-cta { font-size: 0.8rem; font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 5px; }
-    .bm-btn {
-      background: transparent; border: none; color: var(--text-muted); cursor: pointer;
-      padding: 4px; border-radius: 6px; transition: color 0.15s;
+    /* 4 Core Hub Cards */
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
     }
-    .bm-btn.saved { color: var(--amber); }
+    @media (max-width: 960px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .hub-grid { grid-template-columns: 1fr; } }
 
-    /* Workspace Modal */
-    .overlay {
-      display: none; position: fixed; inset: 0; z-index: 60;
-      background: rgba(0, 0, 0, 0.72); backdrop-filter: blur(8px);
-      padding: 18px; overflow-y: auto; animation: fadeIn 0.18s ease;
+    .hub-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    .overlay.open { display: flex; justify-content: center; align-items: flex-start; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .hub-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+    }
+    .hub-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+    }
+    .hub-card h3 { font-size: 1.05rem; font-weight: 700; }
+    .hub-card p { font-size: 0.85rem; color: var(--muted); flex: 1; }
+    .hub-cta { font-size: 0.84rem; font-weight: 700; color: var(--primary); display: inline-flex; align-items: center; gap: 4px; }
 
-    .workspace {
-      width: 100%; max-width: 840px; margin: 16px auto;
-      background: var(--bg-elevated); border: 1px solid var(--border-strong);
-      border-radius: 22px; overflow: hidden; box-shadow: var(--shadow);
-      animation: slideUp 0.22s ease;
+    /* Section Header */
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
     }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .sec-head h2 { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.025em; }
+    .sec-head p { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
 
-    .ws-head {
-      padding: 22px 24px; border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), transparent);
+    /* Filter Pills */
+    .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .pill {
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+      padding: 7px 14px;
+      border-radius: 99px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
     }
-    .ws-tabs {
-      display: flex; gap: 6px; padding: 12px 24px; border-bottom: 1px solid var(--border);
-      overflow-x: auto; background: var(--bg);
-    }
-    .ws-tab {
-      background: transparent; border: 1px solid transparent; color: var(--text-secondary);
-      padding: 8px 14px; border-radius: 10px; font-size: 0.84rem; font-weight: 600;
-      cursor: pointer; white-space: nowrap; transition: all 0.18s;
-      display: inline-flex; align-items: center; gap: 7px;
-    }
-    .ws-tab:hover { color: var(--text); background: var(--surface); }
-    .ws-tab.active { background: var(--accent-soft); border-color: rgba(99, 102, 241, 0.35); color: var(--accent); }
+    .pill:hover { border-color: var(--border-strong); background: var(--subtle); }
+    .pill.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-    .ws-body { padding: 24px; max-height: 68vh; overflow-y: auto; }
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-outline { background: var(--white); color: var(--ink); border: 1px solid var(--border-strong); }
+    .btn-outline:hover { background: var(--subtle); }
+    .btn-emerald { background: var(--emerald); color: #fff; }
+    .btn-emerald:hover { background: #047857; }
+    .btn-sm { padding: 7px 12px; font-size: 0.8rem; border-radius: 8px; }
+
+    /* Cards Grid */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tag-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 7px;
+    }
+    .meta-tag { font-size: 0.76rem; color: var(--muted); font-weight: 600; }
+    .badge-free {
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+
+    /* PYQ Paper Chips */
+    .pyq-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pyq-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+      padding: 7px 12px;
+      border-radius: 9px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .pyq-chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+    /* Cheat Sheet Layout */
+    .sheet-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+    @media (max-width: 820px) { .sheet-layout { grid-template-columns: 1fr; } }
+
+    .sheet-sidebar {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sheet-nav-btn {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 11px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .sheet-nav-btn:hover { background: var(--subtle); }
+    .sheet-nav-btn.active { background: var(--primary-soft); color: var(--primary); }
+    .sheet-nav-btn strong { display: block; font-size: 0.86rem; }
+    .sheet-nav-btn span { font-size: 0.76rem; color: var(--muted); }
+
+    .sheet-paper {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+    .formula-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 18px; }
+    .formula-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .formula-box h4 { font-size: 0.92rem; margin-bottom: 6px; color: var(--ink); }
+    .formula-box p { font-size: 0.85rem; color: var(--ink-2); }
 
     /* Repeated Questions Accordion */
-    .rq-card {
-      background: var(--surface-solid); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px; margin-bottom: 12px; transition: border-color 0.2s;
+    .rq-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      transition: border-color 0.15s;
     }
-    .rq-card.mastered { border-color: rgba(16, 185, 129, 0.4); background: color-mix(in srgb, var(--emerald-soft) 35%, var(--surface-solid)); }
+    .rq-item.done { border-color: #6ee7b7; background: #f0fdf4; }
     .rq-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
-    .heat-pill {
-      display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700;
-      padding: 3px 9px; border-radius: 99px; background: var(--amber-soft); color: var(--amber);
+    .freq-badge {
+      background: var(--amber-soft);
+      color: var(--amber);
+      border: 1px solid #fde68a;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 99px;
     }
-    .marks-pill { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-    .rq-q { font-size: 0.96rem; font-weight: 600; margin-bottom: 10px; }
-    .rq-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .check-label {
-      display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600;
-      color: var(--text-secondary); cursor: pointer; user-select: none;
+    .rq-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .rq-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .rq-ans {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: var(--ink-2);
     }
-    .check-label input { accent-color: var(--emerald); width: 16px; height: 16px; cursor: pointer; }
-    .ans-toggle {
-      background: var(--surface-hover); border: 1px solid var(--border); color: var(--text);
-      padding: 5px 11px; border-radius: 8px; font-size: 0.76rem; font-weight: 600; cursor: pointer;
-    }
-    .ans-box {
-      display: none; margin-top: 12px; padding: 14px; border-radius: 10px;
-      background: var(--bg); border: 1px dashed var(--border-strong);
-      font-size: 0.86rem; color: var(--text-secondary);
-    }
-    .ans-box.show { display: block; }
+    .rq-ans.open { display: block; }
 
-    /* 3D Flashcards */
-    .flash-stage { perspective: 1000px; margin-bottom: 16px; }
-    .flash-card {
-      width: 100%; min-height: 220px; position: relative;
-      transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Full CBT Mock Test Engine */
+    .cbt-shell {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 860px) { .cbt-shell { grid-template-columns: 1fr; } }
+
+    .cbt-main, .cbt-side {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .cbt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cbt-timer {
+      background: var(--rose-soft);
+      color: var(--rose);
+      border: 1px solid #fecdd3;
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .opt-card {
+      width: 100%;
+      text-align: left;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.94rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s;
+    }
+    .opt-card:hover { border-color: var(--primary); background: var(--primary-soft); }
+    .opt-card.selected { border-color: var(--primary); background: var(--primary-soft); font-weight: 600; }
+    .opt-bullet {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--subtle);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .opt-card.selected .opt-bullet { background: var(--primary); color: #fff; }
+
+    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0 18px; }
+    .p-num {
+      height: 38px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-weight: 700;
+      font-size: 0.84rem;
       cursor: pointer;
     }
-    .flash-card.flipped { transform: rotateY(180deg); }
-    .flash-face {
-      position: absolute; inset: 0; backface-visibility: hidden;
-      border-radius: 18px; padding: 28px; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; text-align: center;
-      border: 1px solid var(--border-strong);
-    }
-    .flash-front { background: linear-gradient(145deg, var(--surface-solid), rgba(99, 102, 241, 0.12)); }
-    .flash-back {
-      background: linear-gradient(145deg, var(--surface-solid), rgba(16, 185, 129, 0.14));
-      transform: rotateY(180deg); border-color: rgba(16, 185, 129, 0.4);
-    }
-    .flash-hint { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 10px; }
-    .flash-controls { display: flex; justify-content: space-between; align-items: center; }
+    .p-num.current { border: 2px solid var(--primary); color: var(--primary); }
+    .p-num.answered { background: var(--emerald); color: #fff; border-color: var(--emerald); }
+    .p-num.review { background: var(--amber); color: #fff; border-color: var(--amber); }
 
-    /* CBT Quiz Simulator */
-    .quiz-top {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 16px; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 12px; margin-bottom: 16px;
-    }
-    .quiz-opt {
-      width: 100%; text-align: left; padding: 13px 16px; margin-bottom: 10px;
-      background: var(--surface-solid); border: 1px solid var(--border);
-      border-radius: 12px; color: var(--text); font-size: 0.9rem; font-family: inherit;
-      cursor: pointer; transition: all 0.18s; display: flex; align-items: center; gap: 12px;
-    }
-    .quiz-opt:hover:not(:disabled) { border-color: var(--accent); background: var(--surface-hover); }
-    .quiz-opt.correct { border-color: var(--emerald); background: var(--emerald-soft); color: var(--text); }
-    .quiz-opt.wrong { border-color: var(--rose); background: var(--rose-soft); color: var(--text); }
-    .opt-letter {
-      width: 26px; height: 26px; border-radius: 7px; background: var(--bg);
-      border: 1px solid var(--border); display: grid; place-items: center;
-      font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
-    }
-    .exp-box {
-      padding: 12px 14px; border-radius: 10px; background: var(--accent-soft);
-      border: 1px solid rgba(99, 102, 241, 0.3); font-size: 0.84rem; margin-top: 10px;
-    }
+    .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+    .score-box { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px; text-align: center; }
+    .score-val { font-size: 1.8rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-    /* PYQ Rows & Paywall Card */
-    .pyq-row {
-      display: flex; justify-content: space-between; align-items: center; gap: 12px;
-      padding: 14px 16px; background: var(--surface-solid); border: 1px solid var(--border);
-      border-radius: 12px; margin-bottom: 10px;
+    /* Paid Bundle Strip */
+    .bundle-banner {
+      margin-top: 32px;
+      background: linear-gradient(135deg, #eff6ff 0%, #ecfdf5 100%);
+      border: 1px solid #bfdbfe;
+      border-radius: 18px;
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    .btn-primary {
-      background: var(--accent); color: #fff; border: none; padding: 9px 16px;
-      border-radius: 10px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
-      text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
-    }
-    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    .btn-ghost {
-      background: var(--surface-hover); color: var(--text); border: 1px solid var(--border);
-      padding: 8px 14px; border-radius: 10px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
-    }
-
-    .pro-banner {
-      margin-top: 20px; padding: 20px; border-radius: 16px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(99, 102, 241, 0.14));
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
-    }
-
-    /* Command Palette */
-    .cmd-box {
-      width: 100%; max-width: 560px; margin-top: 8vh;
-      background: var(--bg-elevated); border: 1px solid var(--border-strong);
-      border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
-    }
-    .cmd-input {
-      width: 100%; padding: 16px 20px; border: none; border-bottom: 1px solid var(--border);
-      background: transparent; color: var(--text); font-size: 1rem; outline: none; font-family: inherit;
-    }
-    .cmd-list { max-height: 320px; overflow-y: auto; padding: 8px; }
-    .cmd-item {
-      padding: 11px 14px; border-radius: 10px; cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .cmd-item:hover { background: var(--surface-hover); }
 
     /* Toast */
     .toast {
-      position: fixed; bottom: 22px; right: 22px; z-index: 90;
-      background: var(--surface-solid); border: 1px solid var(--border-strong);
-      color: var(--text); padding: 11px 16px; border-radius: 12px;
-      font-size: 0.84rem; font-weight: 600; box-shadow: var(--shadow);
-      transform: translateY(80px); opacity: 0; transition: all 0.25s ease;
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: var(--ink);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 99;
     }
-    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media print {
+      .alert-strip, header, .sheet-sidebar, .no-print, .bundle-banner { display: none !important; }
+      .sheet-layout { display: block; }
+      .sheet-paper { border: none; box-shadow: none; padding: 0; }
+    }
   </style>
 </head>
 <body>
-  <div class="ambient-bg"></div>
 
+  <!-- LIVE EXAM ALERT BAR -->
+  <div class="alert-strip">
+    <span class="alert-badge">Live Exam</span>
+    <span>IGNOU December 2026 TEE Active (25 Nov – 14 Jan) • Window ends in <span class="alert-timer" id="topTimer">--d --h --m</span></span>
+    <a href="https://www.ignou.ac.in" target="_blank" rel="noopener">Official Date Sheet ↗</a>
+    <a href="https://ignou.samarth.edu.in" target="_blank" rel="noopener">Hall Ticket ↗</a>
+  </div>
+
+  <!-- NAVIGATION -->
   <header>
-    <div class="nav-inner">
-      <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="brand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-        </div>
+    <div class="nav-wrap">
+      <div class="brand" onclick="switchView('home')">
+        <div class="brand-mark">EV</div>
         <div class="brand-name">Exam<span>Vault</span></div>
       </div>
 
-      <div class="nav-actions">
-        <div class="readiness-pill" id="globalReadiness" title="Your mastered questions across all subjects">
-          <span>●</span> <span id="readinessText">0% Ready</span>
-        </div>
-        <button class="cmd-trigger" onclick="openCmd()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <span class="label">Quick Jump</span>
-          <span class="kbd">Ctrl K</span>
-        </button>
-        <button class="icon-btn" onclick="toggleTheme()" title="Switch Light / Dark Theme" id="themeBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        </button>
-      </div>
+      <nav class="nav-links" id="mainNav">
+        <button class="nav-btn active" data-view="home" onclick="switchView('home')">Overview</button>
+        <button class="nav-btn" data-view="mocks" onclick="switchView('mocks')">Free Mock Tests</button>
+        <button class="nav-btn" data-view="papers" onclick="switchView('papers')">Question Papers</button>
+        <button class="nav-btn" data-view="cheatsheets" onclick="switchView('cheatsheets')">Cheat Sheets</button>
+        <button class="nav-btn" data-view="repeated" onclick="switchView('repeated')">Most Repeated Qs</button>
+      </nav>
+
+      <select class="exam-select" onchange="if(this.value!=='ignou'){showToast(this.options[this.selectedIndex].text + ' vault launching soon!'); this.value='ignou';}">
+        <option value="ignou">IGNOU TEE (Active)</option>
+        <option value="boards">Class 10 &amp; 12 Boards</option>
+        <option value="ssc">SSC CGL</option>
+        <option value="net">UGC NET / JRF</option>
+        <option value="jee">IIT JEE &amp; NEET</option>
+      </select>
     </div>
   </header>
 
   <main class="container">
-    <!-- BENTO HERO -->
-    <section class="bento-hero">
-      <div class="hero-card">
-        <div class="live-pill"><span class="pulse-dot"></span> IGNOU Dec 2026 TEE — Exams Active (25 Nov – 14 Jan)</div>
-        <h1>Stop reading 400-page blocks.<br><span class="gradient-text">Master what actually repeats.</span></h1>
-        <p class="hero-sub">Verified 6-year PYQ archives, frequency-ranked repeated questions, 3D formula flashcards, and interactive CBT mock tests—built for Indian exams.</p>
 
-        <div class="search-wrap">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input id="searchInput" class="search-input" type="text" placeholder="Search subject code, paper name, or stream (e.g., BEVAE-181, Accounting, BCA)..." />
+    <!-- ==================== 1. HOME / OVERVIEW ==================== -->
+    <section id="view-home" class="view active">
+      <div class="hero">
+        <div class="hero-eyebrow">Verified 6-Year Exam Archive • 100% Free Practice</div>
+        <h1>Everything you need to clear your exam—organized in one clean vault.</h1>
+        <p>Practice real CBT mock tests, download 5–6 years of previous question papers, and revise with 1-page formula cheat sheets and repeated questions.</p>
+
+        <div class="hero-search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="homeSearch" type="text" placeholder="Search subject code (e.g., BEVAE-181, BCOC-131, BCS-011) and press Enter..." onkeydown="if(event.key==='Enter') runHomeSearch()" />
         </div>
 
-        <div class="exam-pills">
-          <button class="exam-pill active">IGNOU TEE</button>
-          <button class="exam-pill" onclick="showToast('Class 10 & 12 Boards vault launches Jan 2027!')">Class 10 &amp; 12 <span class="pill-soon">Jan '27</span></button>
-          <button class="exam-pill" onclick="showToast('SSC CGL Tier 1 & 2 PYQ Engine coming soon!')">SSC CGL <span class="pill-soon">Soon</span></button>
-          <button class="exam-pill" onclick="showToast('UGC NET Paper 1 Vault coming soon!')">UGC NET / JRF <span class="pill-soon">Soon</span></button>
-          <button class="exam-pill" onclick="showToast('JEE & NEET Formula Hub coming soon!')">JEE &amp; NEET <span class="pill-soon">Soon</span></button>
+        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="switchView('mocks')">Start a Free Mock Test →</button>
+          <button class="btn btn-outline" onclick="switchView('papers')">Browse PYQ Papers</button>
         </div>
       </div>
 
-      <div class="radar-card">
+      <!-- 4 DEDICATED FEATURE AREAS -->
+      <div class="hub-grid">
+        <div class="hub-card" onclick="switchView('mocks')">
+          <div class="hub-icon" style="background:var(--primary-soft); color:var(--primary);">⏱</div>
+          <h3>Free Mock Tests</h3>
+          <p>Timed CBT-style practice tests built directly from repeated past-year questions with instant solutions.</p>
+          <span class="hub-cta">Open Test Arena →</span>
+        </div>
+
+        <div class="hub-card" onclick="switchView('papers')">
+          <div class="hub-icon" style="background:var(--emerald-soft); color:var(--emerald);">📄</div>
+          <h3>Question Papers (PYQs)</h3>
+          <p>Clean, direct PDF downloads of the last 5–6 years of official exam papers without annoying redirects.</p>
+          <span class="hub-cta">Browse Papers →</span>
+        </div>
+
+        <div class="hub-card" onclick="switchView('cheatsheets')">
+          <div class="hub-icon" style="background:var(--purple-soft); color:var(--purple);">⚡</div>
+          <h3>Cheat Sheets &amp; Formulas</h3>
+          <p>Crisp 1-page last-night revision sheets, key definitions, and printable formula booklets.</p>
+          <span class="hub-cta">Open Cheat Sheets →</span>
+        </div>
+
+        <div class="hub-card" onclick="switchView('repeated')">
+          <div class="hub-icon" style="background:var(--amber-soft); color:var(--amber);">🔥</div>
+          <h3>Most Repeated Questions</h3>
+          <p>Questions ranked by how many times they appeared in the last 6 years, with exam-ready answer points.</p>
+          <span class="hub-cta">See High-Yield Qs →</span>
+        </div>
+      </div>
+
+      <!-- QUICK PREVIEW: POPULAR SUBJECTS -->
+      <div class="sec-head">
         <div>
-          <div class="radar-head">
-            <span style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent);">Exam Radar</span>
-            <select id="radarSelect" class="radar-select" onchange="updateRadar()">
-              <option value="ignou">IGNOU Dec '26 TEE</option>
-              <option value="boards">CBSE Class 12 '27</option>
-              <option value="ssc">SSC CGL 2027</option>
-            </select>
-          </div>
-          <div id="radarHeadline" style="font-size:0.92rem; font-weight:700;">Dec 2026 TEE Window Closes In:</div>
-          <div class="timer-grid">
-            <div class="t-box"><span class="t-num" id="tDays">--</span><span class="t-lbl">Days</span></div>
-            <div class="t-box"><span class="t-num" id="tHrs">--</span><span class="t-lbl">Hours</span></div>
-            <div class="t-box"><span class="t-num" id="tMin">--</span><span class="t-lbl">Mins</span></div>
-            <div class="t-box"><span class="t-num" id="tSec">--</span><span class="t-lbl">Secs</span></div>
+          <h2>Most Searched IGNOU Subjects Right Now</h2>
+          <p>Jump straight into mock tests, PYQ papers, or cheat sheets for top-enrollment subjects.</p>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="switchView('papers')">View All Subjects →</button>
+      </div>
+      <div class="grid-3" id="homeQuickGrid"></div>
+    </section>
+
+    <!-- ==================== 2. FREE MOCK TEST ARENA ==================== -->
+    <section id="view-mocks" class="view">
+      <div id="mockLobby">
+        <div class="sec-head">
+          <div>
+            <h2>Free Mock Test Arena</h2>
+            <p>Attempt timed CBT mock tests curated from high-frequency previous year questions. Instant score &amp; explanations included.</p>
           </div>
         </div>
+        <div class="grid-3" id="mockCardsGrid"></div>
+      </div>
+
+      <!-- Active CBT Test Interface -->
+      <div id="mockRunner" style="display:none;"></div>
+    </section>
+
+    <!-- ==================== 3. QUESTION PAPER VAULT ==================== -->
+    <section id="view-papers" class="view">
+      <div class="sec-head">
         <div>
-          <div class="shift-bar">
-            <span><strong>Shifts:</strong> 10 AM – 1 PM &amp; 2 PM – 5 PM</span>
-            <span class="mono" style="color:var(--emerald); font-weight:700;">IST</span>
-          </div>
-          <div class="radar-links">
-            <a class="mini-link" href="https://www.ignou.ac.in" target="_blank" rel="noopener">Official Date Sheet ↗</a>
-            <a class="mini-link" href="https://ignou.samarth.edu.in" target="_blank" rel="noopener">Download Hall Ticket ↗</a>
-          </div>
+          <h2>Previous Year Question Papers (PYQ Vault)</h2>
+          <p>Download clean, session-wise official exam papers from the last 5–6 years.</p>
         </div>
+        <input id="paperSearch" type="text" placeholder="Filter by code or subject..." oninput="renderPapers()" style="padding:10px 14px; border-radius:10px; border:1px solid var(--border-strong); background:#fff; width:260px; font-family:inherit;" />
+      </div>
+
+      <div class="pills" id="paperPills">
+        <button class="pill active" onclick="setPaperStream('ALL', this)">All Streams</button>
+        <button class="pill" onclick="setPaperStream('Compulsory', this)">Compulsory UG</button>
+        <button class="pill" onclick="setPaperStream('B.Com', this)">B.Com</button>
+        <button class="pill" onclick="setPaperStream('BA / BAG', this)">BA / BAG</button>
+        <button class="pill" onclick="setPaperStream('BCA', this)">BCA</button>
+        <button class="pill" onclick="setPaperStream('MBA / M.Com', this)">MBA &amp; M.Com</button>
+      </div>
+
+      <div class="grid-3" id="papersGrid"></div>
+
+      <div class="bundle-banner">
+        <div>
+          <h3 style="font-size:1.1rem; margin-bottom:4px;">Need all Top 20 Repeated Questions Fully Solved in 1 Printable PDF?</h3>
+          <p style="font-size:0.88rem; color:var(--ink-2);">Skip hours of textbook hunting. Get clean, mark-wise model answers + last-night cheat sheet via instant UPI.</p>
+        </div>
+        <button class="btn btn-emerald" onclick="showToast('Attach your Cosmofeed / Razorpay ₹79 UPI link here!')">Get Solved Revision Pack — ₹79</button>
       </div>
     </section>
 
-    <!-- FILTER BAR -->
-    <div class="section-bar">
-      <div class="stream-tabs" id="streamTabs">
-        <button class="stream-btn active" onclick="setStream('ALL', this)">All Subjects</button>
-        <button class="stream-btn" onclick="setStream('Compulsory', this)">Compulsory UG</button>
-        <button class="stream-btn" onclick="setStream('B.Com', this)">B.Com</button>
-        <button class="stream-btn" onclick="setStream('BA / BAG', this)">BA / BAG</button>
-        <button class="stream-btn" onclick="setStream('BCA', this)">BCA</button>
-        <button class="stream-btn" onclick="setStream('MBA / M.Com', this)">MBA &amp; M.Com</button>
-        <button class="stream-btn" onclick="setStream('SAVED', this)">★ Saved</button>
-      </div>
-      <div class="result-count" id="resultCount">Showing 8 subjects</div>
-    </div>
-
-    <!-- SUBJECT VAULT GRID -->
-    <section class="subject-grid" id="subjectGrid"></section>
-  </main>
-
-  <!-- INTERACTIVE SUBJECT WORKSPACE MODAL -->
-  <div class="overlay" id="workspaceOverlay" onclick="if(event.target===this) closeWorkspace()">
-    <div class="workspace">
-      <div class="ws-head">
+    <!-- ==================== 4. CHEAT SHEETS & FORMULA BOOKLETS ==================== -->
+    <section id="view-cheatsheets" class="view">
+      <div class="sec-head no-print">
         <div>
-          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-            <span class="code-chip" id="wsCode">BEVAE-181</span>
-            <span class="stream-tag" id="wsStream">Compulsory UG</span>
-          </div>
-          <h2 id="wsTitle" style="font-size:1.3rem; letter-spacing:-0.02em;">Subject Title</h2>
+          <h2>Cheat Sheets &amp; Formula Booklets</h2>
+          <p>High-yield formulas, definitions, and memory hooks—built for rapid last-night revision or clean PDF printing.</p>
         </div>
-        <button class="btn-ghost" onclick="closeWorkspace()">ESC ✕</button>
+        <button class="btn btn-outline" onclick="window.print()">🖨 Print / Save This Sheet as PDF</button>
       </div>
 
-      <div class="ws-tabs">
-        <button class="ws-tab active" onclick="renderWsTab('repeated', this)">🔥 Most Repeated Qs</button>
-        <button class="ws-tab" onclick="renderWsTab('flashcards', this)">⚡ 3D Cheat Cards</button>
-        <button class="ws-tab" onclick="renderWsTab('quiz', this)">⏱ CBT Mock Test</button>
-        <button class="ws-tab" onclick="renderWsTab('pyq', this)">📄 Free PYQ Vault</button>
+      <div class="sheet-layout">
+        <aside class="sheet-sidebar" id="sheetSidebar"></aside>
+        <article class="sheet-paper" id="sheetContent"></article>
+      </div>
+    </section>
+
+    <!-- ==================== 5. MOST REPEATED QUESTIONS ==================== -->
+    <section id="view-repeated" class="view">
+      <div class="sec-head">
+        <div>
+          <h2>Most Repeated Questions Analyzer</h2>
+          <p>Ranked by frequency across the last 5–6 years of exam sessions. Check off topics as you revise.</p>
+        </div>
+        <select id="rqSubjectFilter" onchange="renderRepeated()" style="padding:10px 14px; border-radius:10px; border:1px solid var(--border-strong); background:#fff; font-family:inherit; font-weight:600;"></select>
       </div>
 
-      <div class="ws-body" id="wsBody"></div>
-    </div>
-  </div>
+      <div id="rqList"></div>
+    </section>
 
-  <!-- COMMAND PALETTE (CTRL+K) -->
-  <div class="overlay" id="cmdOverlay" onclick="if(event.target===this) closeCmd()">
-    <div class="cmd-box">
-      <input id="cmdInput" class="cmd-input" type="text" placeholder="Type subject code or topic (e.g., BEVAE-181, Accounting, BCA)..." />
-      <div class="cmd-list" id="cmdList"></div>
-    </div>
-  </div>
+  </main>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    // ========= SUBJECT DATABASE (Ready to swap with your analyzed PYQ JSONs) =========
+    // ========= CENTRAL SUBJECT DATABASE (Add your real PYQs, Mock Qs & Cheat Sheets here) =========
     const SUBJECTS = [
       {
-        code: "BEVAE-181", name: "Environmental Studies (AECC)", stream: "Compulsory", type: "MCQ / OMR",
-        desc: "Mandatory undergraduate OMR paper with 65%+ concept repetition across past 6 sessions.",
-        payUrl: "#",
+        code: "BEVAE-181", name: "Environmental Studies (AECC)", stream: "Compulsory", pattern: "MCQ / OMR (50 Marks)",
         pyqs: [
-          { session: "June 2026", type: "Official OMR Paper", url: "#" },
-          { session: "December 2025", type: "Official OMR Paper", url: "#" },
-          { session: "June 2025", type: "Official OMR Paper", url: "#" },
-          { session: "December 2024", type: "Official OMR Paper", url: "#" },
-          { session: "June 2024", type: "Official OMR Paper", url: "#" }
+          { session: "June 2026", url: "#" }, { session: "Dec 2025", url: "#" },
+          { session: "June 2025", url: "#" }, { session: "Dec 2024", url: "#" }, { session: "June 2024", url: "#" }
         ],
+        cheatsheet: {
+          subtitle: "Essential definitions, laws, protocols & ecology facts repeated every session.",
+          items: [
+            { title: "Lindeman's 10% Energy Law", body: "Only 10% of energy transfers from one trophic level to the next; 90% is lost as heat/metabolism." },
+            { title: "Montreal vs Kyoto Protocol", body: "Montreal (1987) = Ozone Layer / CFCs. Kyoto (1997) = Greenhouse Gases (CO2, CH4) & Global Warming." },
+            { title: "In-situ vs Ex-situ Conservation", body: "In-situ (on-site): National Parks, Biosphere Reserves, Sanctuaries. Ex-situ (off-site): Seed Banks, Zoos, Botanical Gardens." },
+            { title: "4 Biodiversity Hotspots in India", body: "1) Himalaya, 2) Indo-Burma, 3) Western Ghats & Sri Lanka, 4) Sundaland (Nicobar)." },
+            { title: "Chipko & Silent Valley Movements", body: "Chipko (1973, Uttarakhand — Sunderlal Bahuguna). Silent Valley (Kerala — saved tropical evergreen forest from dam)." },
+            { title: "BOD (Biochemical Oxygen Demand)", body: "High BOD means high organic pollution in water and LOW Dissolved Oxygen (DO) for fish." }
+          ]
+        },
         repeated: [
-          { id: "bev1", q: "Brundtland Commission (1987) definition of Sustainable Development & 17 SDGs", freq: "Asked 6x", years: "2021–2026", marks: "2–4 Marks MCQ", ans: "Key exam hook: 'Our Common Future' report (1987) by WCED. Sustainable development meets present needs without compromising future generations. 17 SDGs adopted in 2015 for 2030 agenda." },
-          { id: "bev2", q: "In-situ vs Ex-situ Biodiversity Conservation & India's 4 Biodiversity Hotspots", freq: "Asked 5x", years: "2022–2026", marks: "High Yield", ans: "In-situ (on-site): National Parks, Biosphere Reserves, Wildlife Sanctuaries. Ex-situ (off-site): Seed Banks, Zoos, Botanical Gardens. 4 Hotspots: Himalaya, Indo-Burma, Western Ghats, Sundaland." },
-          { id: "bev3", q: "Primary vs Secondary Air Pollutants, Acid Rain (SO2/NOx) & Montreal Protocol", freq: "Asked 5x", years: "2021–2025", marks: "High Yield", ans: "Primary: CO, SO2, NOx emitted directly. Secondary: PAN, Tropospheric Ozone (O3), Smog. Montreal Protocol (1987) phases out Ozone-Depleting CFCs." }
+          { id: "r1", freq: "Asked 6x (2021–2026)", marks: "High-Yield MCQ", q: "Brundtland Commission (1987) definition of Sustainable Development & the 17 UN SDGs.", ans: "Published in 'Our Common Future' (1987). Development that meets present needs without compromising future generations. 17 SDGs were adopted in 2015 for the 2030 Agenda." },
+          { id: "r2", freq: "Asked 5x (2022–2026)", marks: "High-Yield MCQ", q: "Difference between Primary & Secondary Air Pollutants and Acid Rain gases.", ans: "Primary pollutants are emitted directly (CO, SO2, NOx). Secondary pollutants form via reaction in air (PAN, Tropospheric Ozone, Smog). Acid rain is caused mainly by SO2 and NOx." }
         ],
-        cards: [
-          { front: "10% Energy Law (Lindeman)", back: "Only 10% of energy is transferred from one trophic level to the next; 90% is lost as metabolic heat." },
-          { front: "Montreal Protocol vs Kyoto Protocol", back: "Montreal (1987) = Ozone Layer (CFCs). Kyoto (1997) = Greenhouse Gases & Global Warming." },
-          { front: "Chipko Movement (1973)", back: "Forest conservation movement in Chamoli, Uttarakhand led by Sunderlal Bahuguna & Chandi Prasad Bhatt." },
-          { front: "BOD (Biochemical Oxygen Demand)", back: "High BOD = High organic pollution in water = Low Dissolved Oxygen (DO) for aquatic life." }
-        ],
-        quiz: [
-          { q: "Which international agreement specifically targets Ozone-depleting substances (CFCs)?", opts: ["Kyoto Protocol", "Montreal Protocol", "Basel Convention", "Ramsar Convention"], ans: 1, exp: "The Montreal Protocol (1987) regulates CFCs and halons to protect the stratospheric ozone layer." },
-          { q: "Which of the following is an example of Ex-situ biodiversity conservation?", opts: ["Biosphere Reserve", "National Park", "Seed Bank & Botanical Garden", "Sacred Grove"], ans: 2, exp: "Ex-situ means conserving species outside their natural habitat (zoos, seed banks, botanical gardens)." },
-          { q: "The report 'Our Common Future' (1987) was published by which commission?", opts: ["Brundtland Commission", "Ramsar Commission", "Stockholm Panel", "IPCC"], ans: 0, exp: "The World Commission on Environment and Development (Brundtland Commission) popularized Sustainable Development." }
-        ]
+        mock: {
+          durationMin: 10,
+          questions: [
+            { q: "Which international protocol specifically regulates Ozone-depleting substances like CFCs?", opts: ["Kyoto Protocol", "Montreal Protocol", "Basel Convention", "Ramsar Convention"], ans: 1, exp: "The Montreal Protocol (1987) phases out CFCs and halons to protect the stratospheric ozone layer." },
+            { q: "Which of the following is an example of Ex-situ biodiversity conservation?", opts: ["National Park", "Biosphere Reserve", "Seed Bank / Botanical Garden", "Sacred Grove"], ans: 2, exp: "Ex-situ conservation protects species outside their natural habitat (zoos, seed banks, botanical gardens)." },
+            { q: "The famous report 'Our Common Future' (1987) was published by:", opts: ["Brundtland Commission", "IPCC", "IUCN", "UNEP Stockholm Panel"], ans: 0, exp: "The World Commission on Environment and Development (Brundtland Commission) popularized Sustainable Development." },
+            { q: "According to Lindeman's law, roughly what percentage of energy passes to the next trophic level?", opts: ["1%", "10%", "25%", "50%"], ans: 1, exp: "Only about 10% of energy moves up each trophic level; the rest is lost as metabolic heat." }
+          ]
+        }
       },
       {
-        code: "BCOC-131", name: "Financial Accounting", stream: "B.Com", type: "Theory + Numericals",
-        desc: "Core first-year commerce paper featuring high-weightage accounting principles & final accounts.",
-        payUrl: "#",
+        code: "BCOC-131", name: "Financial Accounting", stream: "B.Com", pattern: "Theory + Numericals (100 Marks)",
         pyqs: [
-          { session: "June 2026", type: "Descriptive", url: "#" },
-          { session: "December 2025", type: "Descriptive", url: "#" },
-          { session: "June 2025", type: "Descriptive", url: "#" }
+          { session: "June 2026", url: "#" }, { session: "Dec 2025", url: "#" },
+          { session: "June 2025", url: "#" }, { session: "Dec 2024", url: "#" }
         ],
+        cheatsheet: {
+          subtitle: "Core accounting rules, depreciation formulas, and GAAP concepts.",
+          items: [
+            { title: "Accounting Equation", body: "Assets = Liabilities + Owner's Capital (derived directly from the Dual Aspect Concept)." },
+            { title: "3 Golden Rules of Accounting", body: "Personal: Dr Receiver, Cr Giver | Real: Dr What comes in, Cr What goes out | Nominal: Dr Expenses/Losses, Cr Incomes/Gains." },
+            { title: "SLM Depreciation Formula", body: "Annual Depreciation = (Cost of Asset − Scrap Value) ÷ Estimated Useful Life." },
+            { title: "Conservatism / Prudence Concept", body: "Anticipate no future profits, but provide for all possible losses (e.g., Closing stock valued at Cost or NRV, whichever is lower)." }
+          ]
+        },
         repeated: [
-          { id: "bco1", q: "Explain Accounting Concepts: Going Concern, Dual Aspect, Accrual & Conservatism", freq: "Asked 5x", years: "2021–2026", marks: "20 Marks", ans: "Structure for 20 marks: Define GAAP (2 lines), explain each concept with a 1-line journal/balance-sheet example, conclude with why consistency matters." },
-          { id: "bco2", q: "Straight Line Method (SLM) vs Written Down Value (WDV) Method of Depreciation", freq: "Asked 4x", years: "2022–2026", marks: "10–20 Marks", ans: "Always draw a 5-point comparison table: Basis of calculation, Annual charge, Book value at end, Tax Act recognition (WDV), and suitability." }
+          { id: "r3", freq: "Asked 5x (2021–2026)", marks: "20 Marks", q: "Explain Accounting Concepts & Conventions (Going Concern, Dual Aspect, Accrual, Conservatism).", ans: "Start with a 2-line GAAP definition, write 5–6 bold subheadings with a 1-line practical accounting example for each, and close with why uniformity helps investors." },
+          { id: "r4", freq: "Asked 4x (2022–2026)", marks: "10–20 Marks", q: "Distinguish between Straight Line Method (SLM) and Written Down Value (WDV) Method of Depreciation.", ans: "Always use a 5-row comparison table: Basis of calculation, Annual depreciation amount, Book value at end of life (0 in SLM, never 0 in WDV), Income Tax Act acceptance (WDV)." }
         ],
-        cards: [
-          { front: "Fundamental Accounting Equation", back: "Assets = Liabilities + Owner's Capital (always holds true due to Dual Aspect Concept)." },
-          { front: "Golden Rule: Nominal Account", back: "Debit all Expenses & Losses; Credit all Incomes & Gains." },
-          { front: "Conservatism / Prudence Concept", back: "Anticipate no profit, but provide for all possible future losses (e.g., Closing Stock at cost or NRV, whichever is lower)." }
-        ],
-        quiz: [
-          { q: "Which accounting concept assumes a business will continue operating for the foreseeable future?", opts: ["Money Measurement", "Going Concern", "Dual Aspect", "Realisation"], ans: 1, exp: "Going Concern justifies recording fixed assets at historical cost rather than liquidation value." },
-          { q: "Under which depreciation method does the asset's book value never reach zero?", opts: ["Straight Line Method", "Written Down Value (WDV)", "Annuity Method", "Depletion Method"], ans: 1, exp: "WDV applies a fixed percentage to the diminishing balance each year, so it never hits zero." }
-        ]
+        mock: {
+          durationMin: 8,
+          questions: [
+            { q: "Which accounting concept assumes that a business will continue operating indefinitely?", opts: ["Money Measurement", "Going Concern", "Dual Aspect", "Realisation"], ans: 1, exp: "Going Concern justifies recording fixed assets at historical cost rather than liquidation value." },
+            { q: "Under which depreciation method does an asset's book value never become zero?", opts: ["Straight Line Method", "Written Down Value (WDV)", "Annuity Method", "Sinking Fund"], ans: 1, exp: "WDV calculates a fixed percentage on the reducing balance every year, so book value never hits zero." },
+            { q: "Valuation of closing stock at cost or net realisable value, whichever is lower, follows:", opts: ["Matching Concept", "Conservatism Concept", "Cost Concept", "Periodicity Concept"], ans: 1, exp: "Conservatism (Prudence) ensures profits are not overstated and anticipated losses are recorded." }
+          ]
+        }
       },
       {
-        code: "BEGAE-182", name: "English Communication Skills", stream: "Compulsory", type: "Descriptive (50 Marks)",
-        desc: "High-scoring compulsory communication paper with predictable barriers, reading & meeting formats.",
-        payUrl: "#",
-        pyqs: [{ session: "June 2026", type: "Descriptive", url: "#" }, { session: "December 2025", type: "Descriptive", url: "#" }],
+        code: "BEGAE-182", name: "English Communication Skills", stream: "Compulsory", pattern: "Descriptive (50 Marks)",
+        pyqs: [{ session: "June 2026", url: "#" }, { session: "Dec 2025", url: "#" }, { session: "June 2025", url: "#" }],
+        cheatsheet: {
+          subtitle: "Key communication models, 7 Cs, reading techniques & formal formats.",
+          items: [
+            { title: "7 Cs of Communication", body: "Clear, Concise, Concrete, Correct, Coherent, Complete, Courteous." },
+            { title: "Non-Verbal Terms to Quote", body: "Kinesics (body language), Proxemics (personal space), Paralanguage (tone/pitch), Chronemics (use of time)." },
+            { title: "Skimming vs Scanning", body: "Skimming = Quick read for general idea/gist. Scanning = Hunting for one specific date, name, or number." },
+            { title: "4 Major Communication Barriers", body: "Physical (noise), Semantic (jargon/language), Psychological (stress/bias), Socio-cultural." }
+          ]
+        },
         repeated: [
-          { id: "beg1", q: "Barriers to Effective Communication (Semantic, Psychological, Physical) & How to Overcome Them", freq: "Asked 6x", years: "2021–2026", marks: "10 Marks", ans: "List 4 clear categories (Physical, Semantic/Language, Psychological, Socio-cultural) and write 3 actionable remedies." },
-          { id: "beg2", q: "Difference between Verbal & Non-Verbal Communication (Kinesics, Proxemics, Paralanguage)", freq: "Asked 5x", years: "2022–2026", marks: "10 Marks", ans: "Define Kinesics (body language), Proxemics (space), and Paralanguage (tone/pitch) for guaranteed full marks." }
+          { id: "r5", freq: "Asked 6x (2021–2026)", marks: "10 Marks", q: "Explain the Barriers to Effective Communication and suggest ways to overcome them.", ans: "Divide into 4 categories (Physical, Semantic, Psychological, Cultural) and finish with 4 concrete remedies like active listening and clear feedback." }
         ],
-        cards: [
-          { front: "7 Cs of Effective Communication", back: "Clear, Concise, Concrete, Correct, Coherent, Complete, Courteous." },
-          { front: "Skimming vs Scanning", back: "Skimming = Reading fast for the general gist. Scanning = Searching for a specific fact/date/number." }
-        ],
-        quiz: [
-          { q: "The study of body language, gestures, and facial expressions in communication is called:", opts: ["Proxemics", "Kinesics", "Semantics", "Chronemics"], ans: 1, exp: "Kinesics covers gestures and posture; Proxemics is the study of personal space." }
-        ]
+        mock: {
+          durationMin: 6,
+          questions: [
+            { q: "The study of body language, posture, and gestures in communication is called:", opts: ["Proxemics", "Kinesics", "Semantics", "Chronemics"], ans: 1, exp: "Kinesics deals with gestures and facial expressions; Proxemics is the study of physical space." },
+            { q: "Reading a timetable rapidly just to find the departure time of one train is called:", opts: ["Skimming", "Scanning", "Intensive Reading", "Proofreading"], ans: 1, exp: "Scanning means looking rapidly for a specific piece of information." }
+          ]
+        }
       },
       {
-        code: "BPSC-131", name: "Introduction to Political Theory", stream: "BA / BAG", type: "Descriptive (100 Marks)",
-        desc: "IGNOU's #1 highest-enrollment BA core paper covering Liberty, Equality, Justice & Rights.",
-        payUrl: "#",
-        pyqs: [{ session: "June 2026", type: "Descriptive", url: "#" }, { session: "December 2025", type: "Descriptive", url: "#" }],
+        code: "BPSC-131", name: "Introduction to Political Theory", stream: "BA / BAG", pattern: "Descriptive (100 Marks)",
+        pyqs: [{ session: "June 2026", url: "#" }, { session: "Dec 2025", url: "#" }, { session: "June 2025", url: "#" }],
+        cheatsheet: {
+          subtitle: "Must-quote political thinkers, books, and core definitions.",
+          items: [
+            { title: "Isaiah Berlin — Two Concepts of Liberty", body: "Negative Liberty = 'Freedom from' external restraint. Positive Liberty = 'Freedom to' achieve self-mastery." },
+            { title: "John Rawls — A Theory of Justice", body: "Justice as Fairness via 'Original Position' behind a 'Veil of Ignorance' + Difference Principle." },
+            { title: "3 Generations of Rights", body: "1st Gen: Civil & Political | 2nd Gen: Social & Economic | 3rd Gen: Group/Environmental Rights." }
+          ]
+        },
         repeated: [
-          { id: "bps1", q: "Isaiah Berlin's Two Concepts of Liberty: Negative vs Positive Liberty", freq: "Asked 5x", years: "2021–2026", marks: "20 Marks", ans: "Negative Liberty = 'Freedom from' external restraint (Hobbes, Mill). Positive Liberty = 'Freedom to' achieve self-mastery (Rousseau, T.H. Green)." },
-          { id: "bps2", q: "John Rawls' Theory of Justice: Original Position & Veil of Ignorance", freq: "Asked 4x", years: "2022–2026", marks: "20 Marks", ans: "Focus on Justice as Fairness, Equal Liberty Principle, and the Difference Principle (benefiting the least advantaged)." }
+          { id: "r6", freq: "Asked 5x (2021–2026)", marks: "20 Marks", q: "Critically examine Isaiah Berlin's distinction between Negative and Positive Liberty.", ans: "Introduce Berlin's 1958 essay, contrast Hobbes/Mill (Negative) with Rousseau/T.H. Green (Positive), and mention MacCallum's triadic critique." }
         ],
-        cards: [
-          { front: "Veil of Ignorance (John Rawls)", back: "Thought experiment where decision-makers don't know their wealth, class, or status—ensuring fair rules for all." },
-          { front: "Negative vs Positive Liberty", back: "Negative = Absence of interference. Positive = Capacity & opportunity for self-realization." }
-        ],
-        quiz: [
-          { q: "Who authored 'Two Concepts of Liberty' (1958)?", opts: ["John Rawls", "Isaiah Berlin", "Karl Marx", "Harold Laski"], ans: 1, exp: "Isaiah Berlin famously distinguished Negative Liberty from Positive Liberty." }
-        ]
+        mock: {
+          durationMin: 6,
+          questions: [
+            { q: "The concept of 'Veil of Ignorance' is central to whose Theory of Justice?", opts: ["Robert Nozick", "John Rawls", "Karl Marx", "Isaiah Berlin"], ans: 1, exp: "John Rawls used the Veil of Ignorance in 'A Theory of Justice' (1971) to derive fair principles." }
+          ]
+        }
       },
       {
-        code: "BCS-011", name: "Computer Basics & PC Software", stream: "BCA", type: "Descriptive (100 Marks)",
-        desc: "Core first-semester BCA subject covering architecture, number systems, OS, and networking.",
-        payUrl: "#",
-        pyqs: [{ session: "June 2026", type: "Descriptive", url: "#" }, { session: "December 2025", type: "Descriptive", url: "#" }],
+        code: "BCS-011", name: "Computer Basics & PC Software", stream: "BCA", pattern: "Descriptive (100 Marks)",
+        pyqs: [{ session: "June 2026", url: "#" }, { session: "Dec 2025", url: "#" }, { session: "June 2025", url: "#" }],
+        cheatsheet: {
+          subtitle: "Architecture diagrams, memory hierarchy, number systems & OSI layers.",
+          items: [
+            { title: "Von Neumann Architecture", body: "Input Unit → CPU (ALU + Control Unit + Registers) ↔ Main Memory → Output Unit (Stored Program Concept)." },
+            { title: "OSI 7 Layers (Bottom to Top)", body: "Physical → Data Link → Network → Transport → Session → Presentation → Application." },
+            { title: "Memory Speed Hierarchy", body: "Registers (Fastest) > Cache > RAM (Volatile) > SSD/HDD (Non-Volatile, Largest)." }
+          ]
+        },
         repeated: [
-          { id: "bcs1", q: "Von Neumann Architecture with Block Diagram & Stored Program Concept", freq: "Asked 5x", years: "2021–2026", marks: "10 Marks", ans: "Always draw the neat block diagram: Input → CPU (ALU + Control Unit + Registers) ↔ Memory → Output." },
-          { id: "bcs2", q: "OSI 7-Layer Model & Differences between LAN, MAN, WAN + Topologies", freq: "Asked 4x", years: "2022–2026", marks: "15 Marks", ans: "Mnemonic: Please Do Not Throw Sausage Pizza Away (Physical, Data Link, Network, Transport, Session, Presentation, Application)." }
+          { id: "r7", freq: "Asked 5x (2021–2026)", marks: "10 Marks", q: "Explain Von Neumann Architecture with a neat block diagram.", ans: "Draw the 4-block diagram cleanly and explain ALU, CU, Registers, and the Stored Program Concept." }
         ],
-        cards: [
-          { front: "RAM vs ROM", back: "RAM = Volatile, Read/Write, temporary working memory. ROM = Non-volatile, stores BIOS/firmware." },
-          { front: "OSI 7 Layers Mnemonic", back: "Physical → Data Link → Network → Transport → Session → Presentation → Application." }
-        ],
-        quiz: [
-          { q: "Which memory is volatile and loses data when power is turned off?", opts: ["ROM", "RAM", "SSD", "EPROM"], ans: 1, exp: "RAM (Random Access Memory) requires constant power to retain data." }
-        ]
+        mock: {
+          durationMin: 6,
+          questions: [
+            { q: "Which layer of the OSI model is responsible for logical addressing (IP) and routing?", opts: ["Data Link Layer", "Network Layer", "Transport Layer", "Session Layer"], ans: 1, exp: "The Network Layer (Layer 3) handles IP addressing and packet routing across networks." }
+          ]
+        }
       },
       {
-        code: "BCS-012", name: "Basic Mathematics", stream: "BCA", type: "Numerical (100 Marks)",
-        desc: "Highest re-appear BCA subject—matrices, determinants, AP/GP, and calculus shortcuts.",
-        payUrl: "#",
-        pyqs: [{ session: "June 2026", type: "Numerical", url: "#" }, { session: "December 2025", type: "Numerical", url: "#" }],
+        code: "MMPC-001", name: "Management Functions & Org Processes", stream: "MBA / M.Com", pattern: "Descriptive (100 Marks)",
+        pyqs: [{ session: "June 2026", url: "#" }, { session: "Dec 2025", url: "#" }],
+        cheatsheet: {
+          subtitle: "Management theories, PODSCORB & organizational structures.",
+          items: [
+            { title: "PODSCORB (Luther Gulick)", body: "Planning, Organizing, Directing, Staffing, Coordinating, Reporting, Budgeting." },
+            { title: "Fayol vs Taylor", body: "Henry Fayol = 14 Administrative Principles (top-down). F.W. Taylor = Scientific Management (shop-floor efficiency)." }
+          ]
+        },
         repeated: [
-          { id: "bcs12_1", q: "Cramer's Rule & Matrix Inverse Method for solving 3x3 Linear Equations", freq: "Asked 6x", years: "2021–2026", marks: "10 Marks", ans: "Check det(A) ≠ 0 first. Compute Cofactor matrix, transpose to get Adjoint, then A⁻¹ = adj(A)/|A|." }
+          { id: "r8", freq: "Asked 5x (2021–2026)", marks: "20 Marks", q: "Compare Henry Fayol's Administrative Theory with F.W. Taylor's Scientific Management.", ans: "Highlight Unity of Command, Scalar Chain, and Esprit de Corps vs Time/Motion study and Differential Piece Rate." }
         ],
-        cards: [
-          { front: "Condition for Matrix Inverse", back: "Matrix A must be Square and Non-Singular, i.e., |A| ≠ 0." },
-          { front: "Sum of Infinite GP (|r| < 1)", back: "S∞ = a / (1 - r), where 'a' is the first term and 'r' is the common ratio." }
-        ],
-        quiz: [
-          { q: "A square matrix A has an inverse if and only if its determinant |A| is:", opts: ["Equal to 0", "Not equal to 0", "Always 1", "Negative"], ans: 1, exp: "A matrix with |A| = 0 is singular and has no inverse." }
-        ]
-      },
-      {
-        code: "MMPC-001", name: "Management Functions & Org Processes", stream: "MBA / M.Com", type: "Descriptive",
-        desc: "Core MBA first-semester paper tailored for working professionals needing rapid revision.",
-        payUrl: "#",
-        pyqs: [{ session: "June 2026", type: "Descriptive", url: "#" }, { session: "December 2025", type: "Descriptive", url: "#" }],
-        repeated: [
-          { id: "mmp1", q: "Henry Fayol's 14 Principles of Management vs F.W. Taylor's Scientific Management", freq: "Asked 5x", years: "2021–2026", marks: "20 Marks", ans: "Highlight Unity of Command, Scalar Chain, Esprit de Corps (Fayol) vs Time/Motion study & Differential Piece Rate (Taylor)." }
-        ],
-        cards: [
-          { front: "PODSCORB (Luther Gulick)", back: "Planning, Organizing, Directing, Staffing, Coordinating, Reporting, Budgeting." }
-        ],
-        quiz: [
-          { q: "Who is known as the Father of Scientific Management?", opts: ["Henry Fayol", "F.W. Taylor", "Max Weber", "Elton Mayo"], ans: 1, exp: "Frederick Winslow Taylor pioneered Scientific Management." }
-        ]
-      },
-      {
-        code: "MCO-01", name: "Organisation Theory & Behaviour", stream: "MBA / M.Com", type: "Descriptive (100 Marks)",
-        desc: "Mandatory M.Com core paper with heavily repeated motivation, leadership, and culture theories.",
-        payUrl: "#",
-        pyqs: [{ session: "June 2026", type: "Descriptive", url: "#" }, { session: "December 2025", type: "Descriptive", url: "#" }],
-        repeated: [
-          { id: "mco1", q: "Maslow's Hierarchy of Needs vs Herzberg's Two-Factor Theory of Motivation", freq: "Asked 6x", years: "2021–2026", marks: "20 Marks", ans: "Draw Maslow's 5-level pyramid and compare directly against Herzberg's Hygiene Factors vs Motivators." }
-        ],
-        cards: [
-          { front: "Herzberg's Two-Factor Theory", back: "Hygiene factors (salary, policy) prevent dissatisfaction; Motivators (recognition, growth) create satisfaction." }
-        ],
-        quiz: [
-          { q: "In Herzberg's Two-Factor Theory, salary and working conditions are classified as:", opts: ["Motivators", "Hygiene Factors", "Self-actualizers", "Intrinsic rewards"], ans: 1, exp: "Salary is a Hygiene factor—its absence causes dissatisfaction, though alone it doesn't guarantee high motivation." }
-        ]
+        mock: {
+          durationMin: 6,
+          questions: [
+            { q: "Who is widely recognized as the Father of Scientific Management?", opts: ["Henry Fayol", "F.W. Taylor", "Max Weber", "Peter Drucker"], ans: 1, exp: "Frederick Winslow Taylor pioneered Scientific Management focusing on work-study and efficiency." }
+          ]
+        }
       }
     ];
 
-    // ========= STATE (Persisted in localStorage) =========
-    let currentStream = "ALL";
-    let activeSubject = null;
-    let flashIdx = 0;
-    let quizState = { idx: 0, score: 0, answered: false, timer: 180, interval: null };
-    let mastered = JSON.parse(localStorage.getItem("ev_mastered") || "{}");
-    let bookmarks = JSON.parse(localStorage.getItem("ev_bookmarks") || "[]");
+    // ========= STATE =========
+    let paperStream = "ALL";
+    let activeSheetCode = SUBJECTS[0].code;
+    let mastered = JSON.parse(localStorage.getItem("ev_done_qs") || "{}");
+    let cbt = { subject: null, idx: 0, answers: {}, review: {}, secs: 0, timerId: null };
 
-    // ========= THEME TOGGLE =========
-    const savedTheme = localStorage.getItem("ev_theme") || "dark";
+    // ========= TOP LIVE TIMER =========
+    const examEnd = new Date("2027-01-14T17:00:00+05:30").getTime();
+    function tickTopTimer() {
+      const diff = Math.max(0, examEnd - Date.now());
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      document.getElementById("topTimer").textContent = `${d}d ${h}h ${m}m`;
+    }
+    tickTopTimer();
+    setInterval(tickTopTimer, 30000);
+
+    // ========= NAVIGATION =========
+    function switchView(viewName) {
+      clearInterval(cbt.timerId);
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      document.getElementById("view-" + viewName).classList.add("active");
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.view === viewName));
+      if (viewName === "mocks") {
+        document.getElementById("mockLobby").style.display = "block";
+        document.getElementById("mockRunner").style.display = "none";
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function runHomeSearch() {
+      const q = document.getElementById("homeSearch").value.trim();
+      document.getElementById("paperSearch").value = q;
+      switchView("papers");
+      renderPapers();
+    }
+
+    // ========= 1. HOME QUICK GRID =========
+    function renderHomeQuick() {
+      document.getElementById("homeQuickGrid").innerHTML = SUBJECTS.slice(0, 6).map(s => `
+        <div class="card">
+          <div class="tag-row">
+            <span class="code-tag">${s.code}</span>
+            <span class="meta-tag">${s.stream}</span>
+          </div>
+          <div>
+            <h3 style="font-size:1.05rem;">${s.name}</h3>
+            <p style="font-size:0.82rem; color:var(--muted); margin-top:4px;">${s.pattern} • ${s.pyqs.length} PYQs</p>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:auto;">
+            <button class="btn btn-primary btn-sm" onclick="switchView('mocks'); startCBT('${s.code}')">Free Mock</button>
+            <button class="btn btn-outline btn-sm" onclick="activeSheetCode='${s.code}'; renderCheatSheets(); switchView('cheatsheets')">Cheat Sheet</button>
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('paperSearch').value='${s.code}'; renderPapers(); switchView('papers')">PYQs</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // ========= 2. FREE MOCK TEST ARENA & CBT ENGINE =========
+    function renderMockLobby() {
+      document.getElementById("mockCardsGrid").innerHTML = SUBJECTS.map(s => `
+        <div class="card">
+          <div class="tag-row">
+            <span class="code-tag">${s.code}</span>
+            <span class="badge-free">100% Free</span>
+          </div>
+          <div>
+            <h3 style="font-size:1.08rem;">${s.name} — CBT Mini Mock</h3>
+            <p style="font-size:0.84rem; color:var(--muted); margin-top:6px;">
+              ⏱ ${s.mock.durationMin} Mins &nbsp;•&nbsp; 📝 ${s.mock.questions.length} High-Yield Qs &nbsp;•&nbsp; ✅ Instant Solutions
+            </p>
+          </div>
+          <button class="btn btn-primary" style="margin-top:auto;" onclick="startCBT('${s.code}')">Start Free Mock Test →</button>
+        </div>
+      `).join("");
+    }
+
+    function startCBT(code) {
+      const s = SUBJECTS.find(x => x.code === code);
+      clearInterval(cbt.timerId);
+      cbt = { subject: s, idx: 0, answers: {}, review: {}, secs: s.mock.durationMin * 60, timerId: null };
+      document.getElementById("mockLobby").style.display = "none";
+      document.getElementById("mockRunner").style.display = "block";
+      renderCBT();
+      cbt.timerId = setInterval(() => {
+        cbt.secs--;
+        const t = document.getElementById("cbtTimerVal");
+        if (t) t.textContent = fmtTime(cbt.secs);
+        if (cbt.secs <= 0) submitCBT();
+      }, 1000);
+    }
+
+    function fmtTime(sec) {
+      const m = Math.floor(Math.max(0, sec) / 60);
+      const s = Math.max(0, sec) % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
+    function renderCBT() {
+      const qs = cbt.subject.mock.questions;
+      const q = qs[cbt.idx];
+      const letters = ["A", "B", "C", "D"];
+      const chosen = cbt.answers[cbt.idx];
+
+      document.getElementById("mockRunner").innerHTML = `
+        <div class="cbt-shell">
+          <div class="cbt-main">
+            <div class="cbt-header">
+              <div>
+                <span class="code-tag">${cbt.subject.code}</span>
+                <strong style="margin-left:8px;">${cbt.subject.name}</strong>
+              </div>
+              <div class="cbt-timer">⏱ <span id="cbtTimerVal">${fmtTime(cbt.secs)}</span></div>
+            </div>
+
+            <div style="font-size:0.82rem; font-weight:700; color:var(--muted); margin-bottom:8px;">QUESTION ${cbt.idx + 1} OF ${qs.length}</div>
+            <h3 style="font-size:1.12rem; margin-bottom:20px; line-height:1.45;">${q.q}</h3>
+
+            <div>
+              ${q.opts.map((opt, i) => `
+                <button class="opt-card ${chosen === i ? 'selected' : ''}" onclick="pickAnswer(${i})">
+                  <span class="opt-bullet">${letters[i]}</span>
+                  <span>${opt}</span>
+                </button>
+              `).join("")}
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:22px; padding-top:18px; border-top:1px solid var(--border);">
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-outline btn-sm" onclick="toggleReview()">${cbt.review[cbt.idx] ? '★ Marked' : '☆ Mark for Review'}</button>
+                <button class="btn btn-outline btn-sm" onclick="delete cbt.answers[cbt.idx]; renderCBT()">Clear</button>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-outline btn-sm" ${cbt.idx === 0 ? 'disabled' : ''} onclick="cbt.idx--; renderCBT()">← Prev</button>
+                ${cbt.idx < qs.length - 1
+                  ? `<button class="btn btn-primary btn-sm" onclick="cbt.idx++; renderCBT()">Save &amp; Next →</button>`
+                  : `<button class="btn btn-emerald btn-sm" onclick="submitCBT()">Submit Test ✓</button>`
+                }
+              </div>
+            </div>
+          </div>
+
+          <aside class="cbt-side">
+            <h4 style="font-size:0.95rem;">Question Palette</h4>
+            <p style="font-size:0.78rem; color:var(--muted); margin-top:2px;">Click any number to jump directly.</p>
+            <div class="palette-grid">
+              ${qs.map((_, i) => {
+                let cls = "p-num";
+                if (i === cbt.idx) cls += " current";
+                if (cbt.review[i]) cls += " review";
+                else if (cbt.answers[i] !== undefined) cls += " answered";
+                return `<button class="${cls}" onclick="cbt.idx=${i}; renderCBT()">${i + 1}</button>`;
+              }).join("")}
+            </div>
+            <div style="font-size:0.76rem; color:var(--muted); display:flex; flex-direction:column; gap:5px; margin-bottom:18px;">
+              <div><span style="color:var(--emerald);">●</span> Answered &nbsp; <span style="color:var(--amber);">●</span> Marked for Review</div>
+            </div>
+            <button class="btn btn-emerald" style="width:100%;" onclick="submitCBT()">Submit Final Test</button>
+            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px;" onclick="switchView('mocks')">Exit to Lobby</button>
+          </aside>
+        </div>
+      `;
+    }
+
+    function pickAnswer(i) { cbt.answers[cbt.idx] = i; renderCBT(); }
+    function toggleReview() { cbt.review[cbt.idx] = !cbt.review[cbt.idx]; renderCBT(); }
+
+    function submitCBT() {
+      clearInterval(cbt.timerId);
+      const qs = cbt.subject.mock.questions;
+      let correct = 0, attempted = 0;
+      qs.forEach((q, i) => {
+        if (cbt.answers[i] !== undefined) {
+          attempted++;
+          if (cbt.answers[i] === q.ans) correct++;
+        }
+      });
+      const pct = Math.round((correct / qs.length) * 100);
+
+      document.getElementById("mockRunner").innerHTML = `
+        <div class="card" style="max-width:860px; margin:0 auto; padding:30px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <div>
+              <span class="code-tag">${cbt.subject.code}</span>
+              <h2 style="margin-top:8px;">Test Result &amp; Detailed Solutions</h2>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-primary btn-sm" onclick="startCBT('${cbt.subject.code}')">Retake Test ↻</button>
+              <button class="btn btn-outline btn-sm" onclick="switchView('mocks')">All Mock Tests</button>
+            </div>
+          </div>
+
+          <div class="score-grid">
+            <div class="score-box"><div class="score-val" style="color:var(--primary);">${pct}%</div><div style="font-size:0.8rem; color:var(--muted);">Overall Score</div></div>
+            <div class="score-box"><div class="score-val" style="color:var(--emerald);">${correct} / ${qs.length}</div><div style="font-size:0.8rem; color:var(--muted);">Correct Answers</div></div>
+            <div class="score-box"><div class="score-val">${attempted} / ${qs.length}</div><div style="font-size:0.8rem; color:var(--muted);">Attempted</div></div>
+          </div>
+
+          <h3 style="margin-top:10px; font-size:1.05rem;">Answer Key &amp; Explanations</h3>
+          ${qs.map((q, i) => {
+            const u = cbt.answers[i];
+            const isRight = u === q.ans;
+            return `
+              <div style="padding:16px; border:1px solid ${isRight ? '#a7f3d0' : '#fecdd3'}; background:${isRight ? '#f0fdf4' : '#fff1f2'}; border-radius:12px;">
+                <div style="font-weight:700; margin-bottom:6px;">Q${i + 1}. ${q.q}</div>
+                <div style="font-size:0.85rem;">
+                  <strong>Your Answer:</strong> ${u !== undefined ? q.opts[u] : 'Skipped'} &nbsp;|&nbsp;
+                  <strong style="color:var(--emerald);">Correct Answer:</strong> ${q.opts[q.ans]}
+                </div>
+                <p style="font-size:0.84rem; color:var(--ink-2); margin-top:6px;"><strong>Explanation:</strong> ${q.exp}</p>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    // ========= 3. QUESTION PAPERS VAULT =========
+    function setPaperStream(st, btn) {
+      paperStream = st;
+      document.querySelectorAll("#paperPills .pill").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      renderPapers();
+    }
+
+    function renderPapers() {
+      const q = (document.getElementById("paperSearch").value || "").toLowerCase();
+      const list = SUBJECTS.filter(s =>
+        (paperStream === "ALL" || s.stream === paperStream) &&
+        (!q || s.code.toLowerCase().includes(q) || s.name.toLowerCase().includes(q) || s.stream.toLowerCase().includes(q))
+      );
+      document.getElementById("papersGrid").innerHTML = list.length ? list.map(s => `
+        <div class="card">
+          <div class="tag-row">
+            <span class="code-tag">${s.code}</span>
+            <span class="meta-tag">${s.stream}</span>
+          </div>
+          <div>
+            <h3 style="font-size:1.06rem;">${s.name}</h3>
+            <p style="font-size:0.8rem; color:var(--muted); margin-top:3px;">${s.pattern}</p>
+          </div>
+          <div class="pyq-chips">
+            ${s.pyqs.map(p => `
+              <a class="pyq-chip" href="${p.url}" target="_blank" onclick="if('${p.url}'==='#'){event.preventDefault(); showToast('Drop your ${s.code} ${p.session} PDF link here!');}">
+                📄 ${p.session} ↓
+              </a>
+            `).join("")}
+          </div>
+        </div>
+      `).join("") : `<div class="card" style="grid-column:1/-1; text-align:center; color:var(--muted);">No question papers match your filter.</div>`;
+    }
+
+    // ========= 4. CHEAT SHEETS =========
+    function renderCheatSheets() {
+      document.getElementById("sheetSidebar").innerHTML = SUBJECTS.map(s => `
+        <button class="sheet-nav-btn ${s.code === activeSheetCode ? 'active' : ''}" onclick="activeSheetCode='${s.code}'; renderCheatSheets()">
+          <strong>${s.code}</strong>
+          <span>${s.name}</span>
+        </button>
+      `).join("");
+
+      const s = SUBJECTS.find(x => x.code === activeSheetCode);
+      document.getElementById("sheetContent").innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; padding-bottom:16px; border-bottom:1px solid var(--border);">
+          <div>
+            <span class="code-tag">${s.code} • ${s.stream}</span>
+            <h2 style="margin-top:8px; font-size:1.45rem;">${s.name} — Quick Revision Cheat Sheet</h2>
+            <p style="color:var(--muted); font-size:0.9rem; margin-top:4px;">${s.cheatsheet.subtitle}</p>
+          </div>
+          <button class="btn btn-primary btn-sm no-print" onclick="switchView('mocks'); startCBT('${s.code}')">Test Yourself on This →</button>
+        </div>
+
+        <div class="formula-grid">
+          ${s.cheatsheet.items.map(item => `
+            <div class="formula-box">
+              <h4>${item.title}</h4>
+              <p>${item.body}</p>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    // ========= 5. MOST REPEATED QUESTIONS =========
+    function initRqDropdown() {
+      const sel = document.getElementById("rqSubjectFilter");
+      sel.innerHTML = `<option value="ALL">All Subjects</option>` + SUBJECTS.map(s => `<option value="${s.code}">${s.code} — ${s.name}</option>`).join("");
+    }
+
+    function renderRepeated() {
+      const filter = document.getElementById("rqSubjectFilter").value;
+      const items = [];
+      SUBJECTS.forEach(s => {
+        if (filter === "ALL" || s.code === filter) {
+          s.repeated.forEach(r => items.push({ ...r, code: s.code, subName: s.name }));
+        }
+      });
+
+      document.getElementById("rqList").innerHTML = items.map(r => `
+        <div class="rq-item ${mastered[r.id] ? 'done' : ''}">
+          <div class="rq-top">
+            <div>
+              <span class="code-tag" style="margin-right:8px;">${r.code}</span>
+              <span class="freq-badge">🔥 ${r.freq}</span>
+            </div>
+            <span class="meta-tag mono">${r.marks}</span>
+          </div>
+          <div class="rq-title">${r.q}</div>
+          <div class="rq-foot">
+            <label style="display:inline-flex; align-items:center; gap:8px; font-size:0.84rem; font-weight:600; cursor:pointer;">
+              <input type="checkbox" ${mastered[r.id] ? 'checked' : ''} onchange="toggleDone('${r.id}', this.checked)" style="width:16px; height:16px; accent-color:var(--emerald);" />
+              Mark as Revised
+            </label>
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('ans-${r.id}').classList.toggle('open')">View Exam Answer Framework ▾</button>
+          </div>
+          <div class="rq-ans" id="ans-${r.id}"><strong>How to write for full marks:</strong> ${r.ans}</div>
+        </div>
+      `).join("");
+    }
+
+    function toggleDone(id, checked) {
+      if (checked) mastered[id] = true; else delete mastered[id];
+      localStorage.setItem("ev_done_qs", JSON.stringify(mastered));
+      renderRepeated();
+    }
+
+    // ========= TOAST =========
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+    }
+
+    // INIT
+    renderHomeQuick();
+    renderMockLobby();
+    renderPapers();
+    renderCheatSheets();
+    initRqDropdown();
+    renderRepeated();
+  </script>
+</body>
+</html>
