@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exam Vault — PYQs, Most Repeated Questions &amp; Mock Tests</title>
+  <style>
+    :root {
+      --bg: #0f172a; --card: #1e293b; --border: #334155;
+      --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8;
+      --hot: #f97316; --green: #22c55e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 60px; }
+    header { background: rgba(15,23,42,0.95); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    .badge { font-size: 0.72rem; background: rgba(56,189,248,0.15); color: var(--accent); padding: 4px 10px; border-radius: 99px; font-weight: 600; }
+    .container { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
+    .timer-banner { background: linear-gradient(135deg, #1e3a8a, #0f172a); border: 1px solid #3b82f6; border-radius: 14px; padding: 18px; margin-bottom: 22px; text-align: center; }
+    .timer-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #93c5fd; font-weight: 700; }
+    .timer-clock { font-size: 1.7rem; font-weight: 800; margin: 6px 0; font-variant-numeric: tabular-nums; }
+    .timer-sub { font-size: 0.85rem; color: var(--muted); }
+    .exam-pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 18px; }
+    .pill { background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 8px 14px; border-radius: 99px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; cursor: pointer; }
+    .pill.active { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+    .search-box { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 1rem; margin-bottom: 20px; outline: none; }
+    .search-box:focus { border-color: var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; cursor: pointer; transition: transform 0.15s, border-color 0.15s; }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .code { font-size: 0.8rem; font-weight: 800; color: var(--accent); letter-spacing: 0.5px; }
+    .title { font-size: 1.05rem; font-weight: 700; margin: 4px 0 6px; }
+    .meta { font-size: 0.8rem; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+    .tag-hot { color: var(--hot); font-weight: 700; }
+    /* Modal */
+    .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 50; padding: 16px; overflow-y: auto; }
+    .modal { max-width: 720px; margin: 20px auto; background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    .modal-head { display: flex; justify-content: space-between; align-items: start; gap: 10px; margin-bottom: 14px; }
+    .close-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+    .tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 16px; overflow-x: auto; }
+    .tab { background: transparent; border: none; color: var(--muted); font-weight: 700; padding: 6px 10px; cursor: pointer; border-radius: 8px; white-space: nowrap; }
+    .tab.active { background: var(--card); color: var(--accent); }
+    .item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+    .item-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .btn { display: inline-block; background: var(--accent); color: #0f172a; font-weight: 700; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 0.85rem; border: none; cursor: pointer; }
+    .pay-box { background: linear-gradient(135deg, #14532d, #0f172a); border: 1px solid var(--green); border-radius: 12px; padding: 16px; margin-top: 16px; }
+    .pay-btn { background: var(--green); color: #052e16; width: 100%; text-align: center; padding: 12px; font-size: 0.95rem; margin-top: 10px; }
+    .opt-btn { display: block; width: 100%; text-align: left; background: #0f172a; border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; margin-top: 8px; cursor: pointer; }
+    .opt-btn.correct { border-color: var(--green); background: rgba(34,197,94,0.15); }
+    .opt-btn.wrong { border-color: #ef4444; background: rgba(239,68,68,0.15); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Exam<span>Vault</span></div>
+    <div class="badge">Free PYQs &amp; Revision Hub</div>
+  </header>
+
+  <main class="container">
+    <section class="timer-banner">
+      <div class="timer-title" id="timerLabel">IGNOU December 2026 TEE Countdown</div>
+      <div class="timer-clock" id="countdown">--d : --h : --m : --s</div>
+      <div class="timer-sub">Exam Window: 25 Nov 2026 – 14 Jan 2027 • Morning (10 AM) &amp; Evening (2 PM) Shifts</div>
+    </section>
+
+    <div class="exam-pills">
+      <button class="pill active">IGNOU TEE</button>
+      <button class="pill" onclick="alert('Launching Jan 2027!')">Class 10 &amp; 12 Boards</button>
+      <button class="pill" onclick="alert('Coming Soon!')">SSC CGL</button>
+      <button class="pill" onclick="alert('Coming Soon!')">UGC NET / JRF</button>
+      <button class="pill" onclick="alert('Coming Soon!')">JEE &amp; NEET</button>
+    </div>
+
+    <input id="searchInput" class="search-box" type="text" placeholder="Search subject code or name (e.g., BEVAE-181, BCOC-131, BCS-011)..." />
+
+    <section class="grid" id="subjectGrid"></section>
+  </main>
+
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <div class="code" id="mCode"></div>
+          <h2 id="mTitle" style="font-size:1.25rem;"></h2>
+        </div>
+        <button class="close-btn" onclick="closeModal()">✕ Close</button>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('pyq', this)">Free PYQs</button>
+        <button class="tab" onclick="switchTab('repeated', this)">Most Repeated Qs</button>
+        <button class="tab" onclick="switchTab('cheat', this)">Cheat Sheet</button>
+        <button class="tab" onclick="switchTab('quiz', this)">Mini Mock Test</button>
+      </div>
+      <div id="tabContent"></div>
+      <div class="pay-box">
+        <strong style="color:#86efac;">🔥 Last-Night Solved Revision Pack (PDF)</strong>
+        <p style="font-size:0.85rem; color:#cbd5e1; margin-top:4px;">Get all Top 20 Most Repeated Questions with mark-wise model answers + 1-page printable cheat sheet.</p>
+        <a id="payLink" href="#" target="_blank" class="btn pay-btn">Unlock Full Solved PDF — ₹79 (Instant UPI)</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. LIVE EXAM COUNTDOWN TIMER (25 Nov 2026, 10:00 AM IST)
+    const examStart = new Date("2026-11-25T10:00:00+05:30").getTime();
+    const examEnd = new Date("2027-01-14T17:00:00+05:30").getTime();
+    setInterval(() => {
+      const now = Date.now();
+      let diff = examStart - now;
+      if (diff <= 0 && now < examEnd) {
+        document.getElementById("timerLabel").textContent = "IGNOU Dec 2026 TEE Is LIVE — Ends In:";
+        diff = examEnd - now;
+      }
+      const d = Math.max(0, Math.floor(diff / 86400000));
+      const h = Math.max(0, Math.floor((diff % 86400000) / 3600000));
+      const m = Math.max(0, Math.floor((diff % 3600000) / 60000));
+      const s = Math.max(0, Math.floor((diff % 60000) / 1000));
+      document.getElementById("countdown").textContent = `${d}d : ${h}h : ${m}m : ${s}s`;
+    }, 1000);
+
+    // 2. SUBJECT DATABASE (We will replace sample items with your real PYQ analysis!)
+    const SUBJECTS = [
+      {
+        code: "BEVAE-181", name: "Environmental Studies (AECC)", stream: "BAG / BCOMG / BSCG",
+        payUrl: "#",
+        pyqs: [
+          { session: "June 2026", url: "#" },
+          { session: "December 2025", url: "#" },
+          { session: "June 2025", url: "#" },
+          { session: "December 2024", url: "#" }
+        ],
+        repeated: [
+          { q: "Sustainable Development & Brundtland Commission definition", count: "Asked 5x", years: "2022–2026" },
+          { q: "Biodiversity Hotspots in India & In-situ vs Ex-situ conservation", count: "Asked 4x", years: "2021–2025" },
+          { q: "Primary vs Secondary Air Pollutants & Acid Rain causes", count: "Asked 4x", years: "2022–2026" }
+        ],
+        cheat: [
+          "10% Energy Law (Lindeman): Only 10% energy transfers to the next trophic level.",
+          "Chipko Movement (1973, Uttarakhand) — Forest conservation led by Sunderlal Bahuguna.",
+          "Ozone Depletion: Caused by CFCs in the Stratosphere; Montreal Protocol (1987)."
+        ],
+        quiz: [
+          { q: "Which protocol is specifically associated with protecting the Ozone Layer?", opts: ["Kyoto Protocol", "Montreal Protocol", "Basel Convention", "Ramsar Convention"], ans: 1 },
+          { q: "Which of the following is an example of Ex-situ conservation?", opts: ["National Park", "Biosphere Reserve", "Seed Bank / Zoo", "Wildlife Sanctuary"], ans: 2 }
+        ]
+      },
+      {
+        code: "BCOC-131", name: "Financial Accounting", stream: "B.Com (BCOMG / BCOMF)",
+        payUrl: "#",
+        pyqs: [{ session: "June 2026", url: "#" }, { session: "December 2025", url: "#" }],
+        repeated: [{ q: "Accounting Concepts & Conventions (Going Concern, Dual Aspect)", count: "Asked 5x", years: "2021–2026" }],
+        cheat: ["Accounting Equation: Assets = Liabilities + Capital", "Golden Rule (Nominal): Debit all expenses & losses, Credit all incomes & gains."],
+        quiz: [{ q: "Which concept assumes a business will continue indefinitely?", opts: ["Money Measurement", "Going Concern", "Conservatism", "Dual Aspect"], ans: 1 }]
+      },
+      { code: "BEGAE-182", name: "English Communication Skills", stream: "Compulsory UG", payUrl: "#", pyqs: [{ session: "Coming Soon", url: "#" }], repeated: [{ q: "Barriers to Effective Communication & Verbal vs Non-Verbal", count: "Asked 5x", years: "2021–2026" }], cheat: ["7 Cs of Communication: Clear, Concise, Concrete, Correct, Coherent, Complete, Courteous."], quiz: [] },
+      { code: "BPSC-131", name: "Introduction to Political Theory", stream: "BA / BAG", payUrl: "#", pyqs: [{ session: "Coming Soon", url: "#" }], repeated: [{ q: "Negative vs Positive Liberty (Isaiah Berlin)", count: "Asked 4x", years: "2022–2026" }], cheat: ["John Rawls: 'A Theory of Justice' — Veil of Ignorance."], quiz: [] },
+      { code: "BCS-011", name: "Computer Basics & PC Software", stream: "BCA", payUrl: "#", pyqs: [{ session: "Coming Soon", url: "#" }], repeated: [{ q: "Von Neumann Architecture & Primary vs Secondary Memory", count: "Asked 5x", years: "2021–2026" }], cheat: ["1 Byte = 8 Bits | RAM = Volatile | ROM = Non-Volatile."], quiz: [] }
+    ];
+
+    let activeSubject = null;
+    const grid = document.getElementById("subjectGrid");
+
+    function renderGrid(list) {
+      grid.innerHTML = list.map(s => `
+        <div class="card" onclick="openSubject('${s.code}')">
+          <div class="code">${s.code} • ${s.stream}</div>
+          <div class="title">${s.name}</div>
+          <div class="meta">
+            <span>📄 ${s.pyqs.length} PYQs</span>
+            <span class="tag-hot">🔥 ${s.repeated.length} Top Repeated</span>
+          </div>
+        </div>
+      `).join("");
+    }
+    renderGrid(SUBJECTS);
+
+    document.getElementById("searchInput").addEventListener("input", e => {
+      const q = e.target.value.toLowerCase();
+      renderGrid(SUBJECTS.filter(s => s.code.toLowerCase().includes(q) || s.name.toLowerCase().includes(q) || s.stream.toLowerCase().includes(q)));
+    });
+
+    function openSubject(code) {
+      activeSubject = SUBJECTS.find(s => s.code === code);
+      document.getElementById("mCode").textContent = `${activeSubject.code} • ${activeSubject.stream}`;
+      document.getElementById("mTitle").textContent = activeSubject.name;
+      document.getElementById("payLink").href = activeSubject.payUrl;
+      document.getElementById("modalBg").style.display = "block";
+      switchTab("pyq", document.querySelectorAll(".tab")[0]);
+    }
+    function closeModal() { document.getElementById("modalBg").style.display = "none"; }
+
+    function switchTab(type, btn) {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      const box = document.getElementById("tabContent");
+      if (type === "pyq") {
+        box.innerHTML = activeSubject.pyqs.map(p => `
+          <div class="item item-top">
+            <span><strong>${activeSubject.code}</strong> — ${p.session} Paper</span>
+            <a class="btn" href="${p.url}" target="_blank">Download PDF</a>
+          </div>`).join("");
+      } else if (type === "repeated") {
+        box.innerHTML = activeSubject.repeated.map(r => `
+          <div class="item">
+            <div class="item-top"><span class="tag-hot">🔥 ${r.count}</span><span style="font-size:0.8rem;color:#94a3b8;">${r.years}</span></div>
+            <div>${r.q}</div>
+          </div>`).join("");
+      } else if (type === "cheat") {
+        box.innerHTML = activeSubject.cheat.map(c => `<div class="item">✅ ${c}</div>`).join("");
+      } else if (type === "quiz") {
+        if (!activeSubject.quiz.length) { box.innerHTML = `<div class="item">Mock test questions uploading soon for ${activeSubject.code}.</div>`; return; }
+        box.innerHTML = activeSubject.quiz.map((q, qi) => `
+          <div class="item">
+            <strong>Q${qi + 1}. ${q.q}</strong>
+            ${q.opts.map((o, oi) => `<button class="opt-btn" onclick="checkAns(this, ${oi === q.ans})">${o}</button>`).join("")}
+          </div>`).join("");
+      }
+    }
+    function checkAns(btn, isCorrect) {
+      btn.classList.add(isCorrect ? "correct" : "wrong");
+    }
+  </script>
+</body>
+</html>
