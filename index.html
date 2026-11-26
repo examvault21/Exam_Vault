@@ -3,1463 +3,373 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exam Vault — Free Mock Tests, PYQ Question Papers &amp; Cheat Sheets</title>
+  <title>Exam Vault — Choose Your Exam</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f8fafc;
-      --white: #ffffff;
-      --subtle: #f1f5f9;
-      --border: #e2e8f0;
-      --border-strong: #cbd5e1;
-      --ink: #0f172a;
-      --ink-2: #334155;
-      --muted: #64748b;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --primary-soft: #eff6ff;
-      --emerald: #059669;
-      --emerald-soft: #ecfdf5;
-      --amber: #d97706;
-      --amber-soft: #fffbeb;
-      --rose: #e11d48;
-      --rose-soft: #fff1f2;
-      --purple: #7c3aed;
-      --purple-soft: #f5f3ff;
-      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
-      --shadow-md: 0 8px 24px -6px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 20px 40px -12px rgba(15, 23, 42, 0.12);
-      --radius: 14px;
+      --bg: #F5EFE6;
+      --surface: #FFFDF9;
+      --linen: #EBE3D5;
+      --border: #DDD3C3;
+      --ink: #1C1917;
+      --muted: #6B635B;
+      --terracotta: #C25934;
+      --terracotta-soft: #FAEBE4;
+      --forest: #2E6F40;
+      --forest-soft: #E6F2EA;
+      --shadow: 0 10px 30px -10px rgba(28, 25, 23, 0.08);
+      --shadow-hover: 0 22px 44px -12px rgba(28, 25, 23, 0.14);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-    }
-    h1, h2, h3, h4, .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-
-    /* Top Live Notification Strip */
-    .alert-strip {
-      background: #0f172a;
-      color: #f8fafc;
-      font-size: 0.8rem;
-      padding: 8px 16px;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      text-align: center;
+      flex-direction: column;
+      background-image: radial-gradient(rgba(28, 25, 23, 0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
     }
-    .alert-badge {
-      background: #22c55e;
-      color: #052e16;
-      font-weight: 700;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 2px 8px;
-      border-radius: 99px;
-    }
-    .alert-timer {
-      font-family: 'JetBrains Mono', monospace;
-      color: #93c5fd;
-      font-weight: 700;
-    }
-    .alert-strip a { color: #ffffff; text-decoration: underline; font-weight: 600; }
 
-    /* Navbar */
     header {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 40;
-    }
-    .nav-wrap {
-      max-width: 1180px;
+      max-width: 1120px;
+      width: 100%;
       margin: 0 auto;
-      padding: 0 20px;
-      height: 66px;
+      padding: 26px 24px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      align-items: center;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      cursor: pointer;
+      gap: 11px;
       text-decoration: none;
       color: var(--ink);
     }
     .brand-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: var(--primary);
-      color: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--ink);
+      color: var(--bg);
       display: grid;
       place-items: center;
-      font-weight: 800;
-      box-shadow: 0 6px 14px -4px rgba(37, 99, 235, 0.45);
-    }
-    .brand-name { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.03em; }
-    .brand-name span { color: var(--primary); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      overflow-x: auto;
-    }
-    .nav-btn {
-      background: transparent;
-      border: none;
-      color: var(--ink-2);
-      font-family: inherit;
-      font-size: 0.88rem;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.15s ease;
-    }
-    .nav-btn:hover { background: var(--subtle); color: var(--ink); }
-    .nav-btn.active { background: var(--primary-soft); color: var(--primary); }
-
-    .exam-select {
-      background: var(--subtle);
-      border: 1px solid var(--border);
-      color: var(--ink);
-      font-family: inherit;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 8px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      outline: none;
-    }
-    @media (max-width: 780px) {
-      .nav-wrap { height: auto; padding: 12px 16px; flex-wrap: wrap; }
-      .nav-links { order: 3; width: 100%; padding-top: 8px; border-top: 1px solid var(--border); }
-    }
-
-    /* Main Layout */
-    .container {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 32px 20px 80px;
-    }
-    .view { display: none; animation: fadeIn 0.2s ease; }
-    .view.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 44px 36px;
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 32px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% -20%, rgba(37, 99, 235, 0.08), transparent 60%);
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      border: 1px solid #bfdbfe;
-      padding: 5px 14px;
-      border-radius: 99px;
-      font-size: 0.78rem;
+      font-family: 'Fraunces', serif;
       font-weight: 700;
-      margin-bottom: 18px;
+      font-size: 1.05rem;
     }
-    .hero h1 {
-      font-size: clamp(1.9rem, 3.6vw, 2.85rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.15;
-      color: var(--ink);
-      max-width: 760px;
-      margin: 0 auto 14px;
+    .brand-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
-    .hero p {
-      color: var(--muted);
-      font-size: 1.02rem;
-      max-width: 600px;
-      margin: 0 auto 26px;
-    }
+    .brand-name span { color: var(--terracotta); }
 
-    .hero-search {
-      max-width: 560px;
-      margin: 0 auto 28px;
-      position: relative;
-    }
-    .hero-search input {
-      width: 100%;
-      padding: 15px 18px 15px 46px;
-      border-radius: 14px;
-      border: 1px solid var(--border-strong);
-      background: var(--white);
-      font-size: 0.96rem;
-      font-family: inherit;
-      color: var(--ink);
-      box-shadow: var(--shadow-md);
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .hero-search input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-    }
-    .hero-search svg {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-    }
-
-    /* 4 Core Hub Cards */
-    .hub-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 36px;
-    }
-    @media (max-width: 960px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 540px) { .hub-grid { grid-template-columns: 1fr; } }
-
-    .hub-card {
-      background: var(--white);
+    .header-pill {
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .hub-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-lg);
-    }
-    .hub-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-size: 1.25rem;
-    }
-    .hub-card h3 { font-size: 1.05rem; font-weight: 700; }
-    .hub-card p { font-size: 0.85rem; color: var(--muted); flex: 1; }
-    .hub-cta { font-size: 0.84rem; font-weight: 700; color: var(--primary); display: inline-flex; align-items: center; gap: 4px; }
-
-    /* Section Header */
-    .sec-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-    .sec-head h2 { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.025em; }
-    .sec-head p { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
-
-    /* Filter Pills */
-    .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .pill {
-      background: var(--white);
-      border: 1px solid var(--border);
-      color: var(--ink-2);
+      color: var(--muted);
       padding: 7px 14px;
       border-radius: 99px;
-      font-size: 0.83rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .pill:hover { border-color: var(--border-strong); background: var(--subtle); }
-    .pill.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 0.86rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-hover); }
-    .btn-outline { background: var(--white); color: var(--ink); border: 1px solid var(--border-strong); }
-    .btn-outline:hover { background: var(--subtle); }
-    .btn-emerald { background: var(--emerald); color: #fff; }
-    .btn-emerald:hover { background: #047857; }
-    .btn-sm { padding: 7px 12px; font-size: 0.8rem; border-radius: 8px; }
-
-    /* Cards Grid */
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
-    .card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .tag-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .code-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.76rem;
-      font-weight: 700;
-      background: var(--primary-soft);
-      color: var(--primary);
-      padding: 4px 10px;
-      border-radius: 7px;
-    }
-    .meta-tag { font-size: 0.76rem; color: var(--muted); font-weight: 600; }
-    .badge-free {
-      background: var(--emerald-soft);
-      color: var(--emerald);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 99px;
-    }
-
-    /* PYQ Paper Chips */
-    .pyq-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pyq-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--ink-2);
-      padding: 7px 12px;
-      border-radius: 9px;
       font-size: 0.8rem;
       font-weight: 600;
-      text-decoration: none;
-      transition: all 0.15s;
     }
-    .pyq-chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
 
-    /* Cheat Sheet Layout */
-    .sheet-layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 22px;
-      align-items: start;
-    }
-    @media (max-width: 820px) { .sheet-layout { grid-template-columns: 1fr; } }
-
-    .sheet-sidebar {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      max-height: 75vh;
-      overflow-y: auto;
-    }
-    .sheet-nav-btn {
+    main {
+      max-width: 1120px;
       width: 100%;
-      text-align: left;
-      background: transparent;
-      border: none;
-      padding: 11px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.15s;
+      margin: 0 auto;
+      padding: 28px 24px 72px;
+      flex: 1;
     }
-    .sheet-nav-btn:hover { background: var(--subtle); }
-    .sheet-nav-btn.active { background: var(--primary-soft); color: var(--primary); }
-    .sheet-nav-btn strong { display: block; font-size: 0.86rem; }
-    .sheet-nav-btn span { font-size: 0.76rem; color: var(--muted); }
 
-    .sheet-paper {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: var(--shadow-sm);
+    .intro {
+      text-align: center;
+      margin-bottom: 44px;
     }
-    .formula-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 18px; }
-    .formula-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--primary);
-      border-radius: 12px;
-      padding: 16px;
-    }
-    .formula-box h4 { font-size: 0.92rem; margin-bottom: 6px; color: var(--ink); }
-    .formula-box p { font-size: 0.85rem; color: var(--ink-2); }
-
-    /* Repeated Questions Accordion */
-    .rq-item {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-      transition: border-color 0.15s;
-    }
-    .rq-item.done { border-color: #6ee7b7; background: #f0fdf4; }
-    .rq-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
-    .freq-badge {
-      background: var(--amber-soft);
-      color: var(--amber);
-      border: 1px solid #fde68a;
-      font-size: 0.74rem;
+    .intro h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.1rem, 4.5vw, 3.3rem);
       font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 99px;
-    }
-    .rq-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
-    .rq-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .rq-ans {
-      display: none;
-      margin-top: 14px;
-      padding: 14px 16px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 0.88rem;
-      color: var(--ink-2);
-    }
-    .rq-ans.open { display: block; }
-
-    /* Full CBT Mock Test Engine */
-    .cbt-shell {
-      display: grid;
-      grid-template-columns: 1fr 290px;
-      gap: 20px;
-      align-items: start;
-    }
-    @media (max-width: 860px) { .cbt-shell { grid-template-columns: 1fr; } }
-
-    .cbt-main, .cbt-side {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-    }
-    .cbt-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 16px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .cbt-timer {
-      background: var(--rose-soft);
-      color: var(--rose);
-      border: 1px solid #fecdd3;
-      padding: 6px 14px;
-      border-radius: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      font-size: 0.95rem;
-    }
-    .opt-card {
-      width: 100%;
-      text-align: left;
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
       margin-bottom: 10px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.94rem;
+    }
+    .intro p {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    /* Exam Tiles Grid */
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) { .exam-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .exam-grid { grid-template-columns: 1fr; } }
+
+    .exam-tile {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      text-decoration: none;
       color: var(--ink);
       display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.15s;
-    }
-    .opt-card:hover { border-color: var(--primary); background: var(--primary-soft); }
-    .opt-card.selected { border-color: var(--primary); background: var(--primary-soft); font-weight: 600; }
-    .opt-bullet {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: var(--subtle);
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-    .opt-card.selected .opt-bullet { background: var(--primary); color: #fff; }
-
-    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0 18px; }
-    .p-num {
-      height: 38px;
-      border-radius: 9px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      font-weight: 700;
-      font-size: 0.84rem;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: var(--shadow);
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
       cursor: pointer;
     }
-    .p-num.current { border: 2px solid var(--primary); color: var(--primary); }
-    .p-num.answered { background: var(--emerald); color: #fff; border-color: var(--emerald); }
-    .p-num.review { background: var(--amber); color: #fff; border-color: var(--amber); }
+    .exam-tile.active:hover {
+      transform: translateY(-6px);
+      border-color: var(--terracotta);
+      box-shadow: var(--shadow-hover);
+    }
+    .exam-tile.soon {
+      opacity: 0.72;
+      background: rgba(255, 253, 249, 0.65);
+    }
+    .exam-tile.soon:hover {
+      opacity: 0.92;
+      border-color: #C7BAAA;
+    }
 
-    .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
-    .score-box { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px; text-align: center; }
-    .score-val { font-size: 1.8rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .tile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .tile-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--linen);
+      color: var(--ink);
+    }
+    .exam-tile.active .tile-icon {
+      background: var(--terracotta-soft);
+      color: var(--terracotta);
+    }
 
-    /* Paid Bundle Strip */
-    .bundle-banner {
-      margin-top: 32px;
-      background: linear-gradient(135deg, #eff6ff 0%, #ecfdf5 100%);
-      border: 1px solid #bfdbfe;
-      border-radius: 18px;
-      padding: 24px 28px;
+    .status-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 5px 11px;
+      border-radius: 99px;
+    }
+    .status-live {
+      background: var(--forest-soft);
+      color: var(--forest);
+    }
+    .status-soon {
+      background: var(--linen);
+      color: var(--muted);
+    }
+
+    .exam-tile h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .tile-sub {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .tile-foot {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--linen);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+    .exam-tile.active .tile-foot { color: var(--terracotta); }
+    .exam-tile.soon .tile-foot { color: var(--muted); font-weight: 500; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.82rem;
+      color: var(--muted);
     }
 
-    /* Toast */
     .toast {
       position: fixed;
-      bottom: 22px;
-      right: 22px;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
       background: var(--ink);
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 0.86rem;
+      color: var(--bg);
+      padding: 11px 20px;
+      border-radius: 99px;
+      font-size: 0.85rem;
       font-weight: 600;
-      box-shadow: var(--shadow-lg);
       opacity: 0;
-      transform: translateY(20px);
       pointer-events: none;
       transition: all 0.22s ease;
-      z-index: 99;
     }
-    .toast.show { opacity: 1; transform: translateY(0); }
-
-    @media print {
-      .alert-strip, header, .sheet-sidebar, .no-print, .bundle-banner { display: none !important; }
-      .sheet-layout { display: block; }
-      .sheet-paper { border: none; box-shadow: none; padding: 0; }
-    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- LIVE EXAM ALERT BAR -->
-  <div class="alert-strip">
-    <span class="alert-badge">Live Exam</span>
-    <span>IGNOU December 2026 TEE Active (25 Nov – 14 Jan) • Window ends in <span class="alert-timer" id="topTimer">--d --h --m</span></span>
-    <a href="https://www.ignou.ac.in" target="_blank" rel="noopener">Official Date Sheet ↗</a>
-    <a href="https://ignou.samarth.edu.in" target="_blank" rel="noopener">Hall Ticket ↗</a>
-  </div>
-
-  <!-- NAVIGATION -->
   <header>
-    <div class="nav-wrap">
-      <div class="brand" onclick="switchView('home')">
-        <div class="brand-mark">EV</div>
-        <div class="brand-name">Exam<span>Vault</span></div>
-      </div>
-
-      <nav class="nav-links" id="mainNav">
-        <button class="nav-btn active" data-view="home" onclick="switchView('home')">Overview</button>
-        <button class="nav-btn" data-view="mocks" onclick="switchView('mocks')">Free Mock Tests</button>
-        <button class="nav-btn" data-view="papers" onclick="switchView('papers')">Question Papers</button>
-        <button class="nav-btn" data-view="cheatsheets" onclick="switchView('cheatsheets')">Cheat Sheets</button>
-        <button class="nav-btn" data-view="repeated" onclick="switchView('repeated')">Most Repeated Qs</button>
-      </nav>
-
-      <select class="exam-select" onchange="if(this.value!=='ignou'){showToast(this.options[this.selectedIndex].text + ' vault launching soon!'); this.value='ignou';}">
-        <option value="ignou">IGNOU TEE (Active)</option>
-        <option value="boards">Class 10 &amp; 12 Boards</option>
-        <option value="ssc">SSC CGL</option>
-        <option value="net">UGC NET / JRF</option>
-        <option value="jee">IIT JEE &amp; NEET</option>
-      </select>
-    </div>
+    <a class="brand" href="index.html">
+      <div class="brand-mark">EV</div>
+      <div class="brand-name">Exam<span>Vault</span></div>
+    </a>
+    <div class="header-pill">PYQs • Mocks • Solved Packs</div>
   </header>
 
-  <main class="container">
+  <main>
+    <div class="intro">
+      <h1>Choose your exam.</h1>
+      <p>Select a vault to access syllabus papers, practice mocks, and revision packs.</p>
+    </div>
 
-    <!-- ==================== 1. HOME / OVERVIEW ==================== -->
-    <section id="view-home" class="view active">
-      <div class="hero">
-        <div class="hero-eyebrow">20 High-Enrollment IGNOU Subjects • 119 Verified PYQ Papers</div>
-        <h1>Everything you need to clear your exam—organized in one clean vault.</h1>
-        <p>Practice real CBT mock tests, download 5–6 years of previous question papers, and revise with 1-page formula cheat sheets and repeated questions.</p>
-
-        <div class="hero-search">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input id="homeSearch" type="text" placeholder="Search subject code (e.g., BEVAE-181, BCOC-131, BCS-011) and press Enter..." onkeydown="if(event.key==='Enter') runHomeSearch()" />
-        </div>
-
-        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="switchView('mocks')">Start a Free Mock Test →</button>
-          <button class="btn btn-outline" onclick="switchView('papers')">Browse 119 PYQ Papers</button>
-        </div>
-      </div>
-
-      <!-- 4 DEDICATED FEATURE AREAS -->
-      <div class="hub-grid">
-        <div class="hub-card" onclick="switchView('mocks')">
-          <div class="hub-icon" style="background:var(--primary-soft); color:var(--primary);">⏱</div>
-          <h3>Free Mock Tests</h3>
-          <p>Timed CBT-style practice tests built directly from repeated past-year questions with instant solutions.</p>
-          <span class="hub-cta">Open Test Arena →</span>
-        </div>
-
-        <div class="hub-card" onclick="switchView('papers')">
-          <div class="hub-icon" style="background:var(--emerald-soft); color:var(--emerald);">📄</div>
-          <h3>Question Papers (PYQs)</h3>
-          <p>Clean, direct PDF downloads of the last 5–6 years of official exam papers without annoying redirects.</p>
-          <span class="hub-cta">Browse Papers →</span>
-        </div>
-
-        <div class="hub-card" onclick="switchView('cheatsheets')">
-          <div class="hub-icon" style="background:var(--purple-soft); color:var(--purple);">⚡</div>
-          <h3>Cheat Sheets &amp; Formulas</h3>
-          <p>Crisp 1-page last-night revision sheets, key definitions, and printable formula booklets.</p>
-          <span class="hub-cta">Open Cheat Sheets →</span>
-        </div>
-
-        <div class="hub-card" onclick="switchView('repeated')">
-          <div class="hub-icon" style="background:var(--amber-soft); color:var(--amber);">🔥</div>
-          <h3>Most Repeated Questions</h3>
-          <p>Questions ranked by how many times they appeared in the last 6 years, with exam-ready answer points.</p>
-          <span class="hub-cta">See High-Yield Qs →</span>
-        </div>
-      </div>
-
-      <!-- QUICK PREVIEW: POPULAR SUBJECTS -->
-      <div class="sec-head">
-        <div>
-          <h2>Most Searched IGNOU Subjects Right Now</h2>
-          <p>Jump straight into mock tests, PYQ papers, or cheat sheets for top-enrollment subjects.</p>
-        </div>
-        <button class="btn btn-outline btn-sm" onclick="switchView('papers')">View All 20 Subjects →</button>
-      </div>
-      <div class="grid-3" id="homeQuickGrid"></div>
-    </section>
-
-    <!-- ==================== 2. FREE MOCK TEST ARENA ==================== -->
-    <section id="view-mocks" class="view">
-      <div id="mockLobby">
-        <div class="sec-head">
-          <div>
-            <h2>Free Mock Test Arena</h2>
-            <p>Attempt timed CBT mock tests curated from high-frequency previous year questions. Instant score &amp; explanations included.</p>
+    <div class="exam-grid">
+      <!-- 1. IGNOU (ACTIVE) -->
+      <a class="exam-tile active" href="ignou.html">
+        <div class="tile-top">
+          <div class="tile-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           </div>
+          <span class="status-badge status-live">● Live</span>
         </div>
-        <div class="grid-3" id="mockCardsGrid"></div>
-      </div>
-
-      <!-- Active CBT Test Interface -->
-      <div id="mockRunner" style="display:none;"></div>
-    </section>
-
-    <!-- ==================== 3. QUESTION PAPER VAULT ==================== -->
-    <section id="view-papers" class="view">
-      <div class="sec-head">
         <div>
-          <h2>Previous Year Question Papers (PYQ Vault)</h2>
-          <p>Download clean, session-wise official exam papers from the last 5–6 years.</p>
+          <h2>IGNOU</h2>
+          <div class="tile-sub">BA • B.Com • B.Sc • BCA • MBA • M.Com</div>
         </div>
-        <input id="paperSearch" type="text" placeholder="Filter by code or subject..." oninput="renderPapers()" style="padding:10px 14px; border-radius:10px; border:1px solid var(--border-strong); background:#fff; width:260px; font-family:inherit;" />
-      </div>
+        <div class="tile-foot">
+          <span>Open IGNOU Vault</span>
+          <span>→</span>
+        </div>
+      </a>
 
-      <div class="pills" id="paperPills">
-        <button class="pill active" onclick="setPaperStream('ALL', this)">All Streams (20)</button>
-        <button class="pill" onclick="setPaperStream('Compulsory', this)">Compulsory UG</button>
-        <button class="pill" onclick="setPaperStream('B.Com', this)">B.Com</button>
-        <button class="pill" onclick="setPaperStream('BA / BAG', this)">BA / BAG</button>
-        <button class="pill" onclick="setPaperStream('BCA', this)">BCA</button>
-        <button class="pill" onclick="setPaperStream('MBA / M.Com', this)">MBA &amp; M.Com</button>
-      </div>
-
-      <div class="grid-3" id="papersGrid"></div>
-
-      <div class="bundle-banner">
+      <!-- 2. UPSC CSE -->
+      <div class="exam-tile soon" onclick="notifySoon('UPSC CSE')">
+        <div class="tile-top">
+          <div class="tile-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg>
+          </div>
+          <span class="status-badge status-soon">Coming Soon</span>
+        </div>
         <div>
-          <h3 style="font-size:1.1rem; margin-bottom:4px;">BEVAE-181 Master Revision Pack — 100 Most Repeated Solved MCQs + 4 Memory Sheets</h3>
-          <p style="font-size:0.88rem; color:var(--ink-2);">Built from 9 official IGNOU sessions (June 2022 – June 2026). Includes all 4 options, explanations, exam traps &amp; 1-page printable cheat sheets.</p>
+          <h2>UPSC CSE</h2>
+          <div class="tile-sub">Prelims • Mains • CSAT</div>
         </div>
-        <a class="btn btn-emerald" href="https://topmate.io/examvault/2428756" target="_blank" rel="noopener">Get BEVAE-181 Pack — ₹79 ↗</a>
+        <div class="tile-foot">
+          <span>Launching soon</span>
+          <span>⏳</span>
+        </div>
       </div>
-    </section>
-    </section>
 
-    <!-- ==================== 4. CHEAT SHEETS & FORMULA BOOKLETS ==================== -->
-    <section id="view-cheatsheets" class="view">
-      <div class="sec-head no-print">
+      <!-- 3. SSC CGL -->
+      <div class="exam-tile soon" onclick="notifySoon('SSC CGL')">
+        <div class="tile-top">
+          <div class="tile-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h6M7 16h4"/></svg>
+          </div>
+          <span class="status-badge status-soon">Coming Soon</span>
+        </div>
         <div>
-          <h2>Cheat Sheets &amp; Formula Booklets</h2>
-          <p>High-yield formulas, definitions, and memory hooks—built for rapid last-night revision or clean PDF printing.</p>
+          <h2>SSC CGL</h2>
+          <div class="tile-sub">Tier I • Tier II • Quant &amp; GS</div>
         </div>
-        <button class="btn btn-outline" onclick="window.print()">🖨 Print / Save This Sheet as PDF</button>
+        <div class="tile-foot">
+          <span>Launching soon</span>
+          <span>⏳</span>
+        </div>
       </div>
 
-      <div class="sheet-layout">
-        <aside class="sheet-sidebar" id="sheetSidebar"></aside>
-        <article class="sheet-paper" id="sheetContent"></article>
-      </div>
-    </section>
-
-    <!-- ==================== 5. MOST REPEATED QUESTIONS ==================== -->
-    <section id="view-repeated" class="view">
-      <div class="sec-head">
+      <!-- 4. UGC NET -->
+      <div class="exam-tile soon" onclick="notifySoon('UGC NET / JRF')">
+        <div class="tile-top">
+          <div class="tile-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <span class="status-badge status-soon">Coming Soon</span>
+        </div>
         <div>
-          <h2>Most Repeated Questions Analyzer</h2>
-          <p>Ranked by frequency across the last 5–6 years of exam sessions. Check off topics as you revise.</p>
+          <h2>UGC NET</h2>
+          <div class="tile-sub">Paper 1 • Subject Archives</div>
         </div>
-        <select id="rqSubjectFilter" onchange="renderRepeated()" style="padding:10px 14px; border-radius:10px; border:1px solid var(--border-strong); background:#fff; font-family:inherit; font-weight:600;"></select>
+        <div class="tile-foot">
+          <span>Launching soon</span>
+          <span>⏳</span>
+        </div>
       </div>
 
-      <div id="rqList"></div>
-    </section>
+      <!-- 5. BANKING -->
+      <div class="exam-tile soon" onclick="notifySoon('Banking & IBPS')">
+        <div class="tile-top">
+          <div class="tile-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <span class="status-badge status-soon">Coming Soon</span>
+        </div>
+        <div>
+          <h2>Banking</h2>
+          <div class="tile-sub">IBPS PO • SBI • RBI</div>
+        </div>
+        <div class="tile-foot">
+          <span>Launching soon</span>
+          <span>⏳</span>
+        </div>
+      </div>
 
+      <!-- 6. CUET / BOARDS -->
+      <div class="exam-tile soon" onclick="notifySoon('CUET & Boards')">
+        <div class="tile-top">
+          <div class="tile-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <span class="status-badge status-soon">Coming Soon</span>
+        </div>
+        <div>
+          <h2>CUET &amp; Boards</h2>
+          <div class="tile-sub">Class 12 • UG Entrance</div>
+        </div>
+        <div class="tile-foot">
+          <span>Launching soon</span>
+          <span>⏳</span>
+        </div>
+      </div>
+    </div>
   </main>
 
+  <footer>Exam Vault • Clean Exam Preparation</footer>
   <div class="toast" id="toast"></div>
 
   <script>
-    // ========= CENTRAL SUBJECT DATABASE (20 IGNOU Subjects + 119 Verified Official PYQ Links) =========
-    const SUBJECTS = [
-      {
-        code: "BEVAE-181", name: "Environmental Studies (AECC)", stream: "Compulsory", pattern: "MCQ / OMR (50 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BEVAE-181.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BEVAE-181.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BEVAE-181.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BEVAE-181.pdf" },
-          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOH/BDP/BEVAE-181.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BEVAE-181.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BEVAE-181.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BEVAE-181.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BEVAE-181.pdf" }
-        ],
-        cheatsheet: {
-          subtitle: "Built from 9 official BEVAE-181 sessions (June 2022 – June 2026, 450 MCQs analyzed).",
-          items: [
-            { title: "Aquatic Organisms (Asked 9/9 Times)", body: "Neuston = unattached at air-water interface. Periphyton = attached to plant stems/roots. Benthos = bottom of water mass." },
-            { title: "Sludge Gas & Sulphur Reservoir (6/9 Times)", body: "Sludge gas = largely Methane. Main Sulphur reservoir = Soil & Sediments (Sedimentary cycle)." },
-            { title: "Conventional vs Non-Conventional (7/9 Times)", body: "Atomic Energy & Fossil Fuels = Conventional. Solar, Wind, Biomass & Geothermal = Non-conventional." },
-            { title: "In-Situ vs Ex-Situ Conservation (7/9 Times)", body: "In-situ = National Parks & Sanctuaries. Ex-situ = Seed Bank (provides 'genetic insurance'), Zoos, Botanical Gardens." },
-            { title: "Waste Treatment Methods (7/9 Times)", body: "Conditioning = Physical treatment. Digestion, Composting & Lagooning = Biological treatment. Nuclear waste = Underground disposal." },
-            { title: "Indian Constitution & Environment (6/9 Times)", body: "Added in 1976 via 42nd Amendment Act under Article 48A (State duty) and Article 51A (Fundamental Duty)." },
-            { title: "Biodiversity Hotspots & Zones (8/9 Times)", body: "Hotspots = regions of high endemism (4 in India: Himalaya, Western Ghats, Indo-Burma, Sundaland). Largest zone = Deccan Peninsula." },
-            { title: "ENVIS Centres & Inequity (8/9 Times)", body: "ENVIS created by MoEFCC; HQ in New Delhi (TIFR Mumbai & AIIMS Delhi are NOT ENVIS). Remote meetings / English-only = Procedural Inequity." },
-            { title: "Quick High-Repeat Facts (4x Each)", body: "Determinism = Friedrich Ratzel | Possibilism = Lucien Febvre | Lotic = River | Silent Valley = Kunthi River | IPCC = 1988 (WMO+UNEP) | Congress Weed = Skin Allergies." }
-          ]
-        },
-        repeated: [
-          { id: "bev1", freq: "Asked 9/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "Aquatic organism classification: Neuston (air-water interface), Periphyton (attached to stems), and Benthos (bottom dwellers).", ans: "Memorize the 3-word map: Interface = Neuston (asked 5x); Attached to stem = Periphyton (2x); Bottom = Benthos (2x)." },
-          { id: "bev2", freq: "Asked 8/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "Biodiversity Hotspots: High endemism, 4 hotspots in India, and Western Ghats endemism.", ans: "Hotspots are defined by HIGH ENDEMISM. India has 4 of the 34 global hotspots (not 6). Vindhyas/Satpura is NOT a hotspot." },
-          { id: "bev3", freq: "Asked 8/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "ENVIS Centres: Established by MoEFCC, Main Centre in New Delhi, and odd-one-out centres.", ans: "Main centre = New Delhi (MoEFCC). Watch for trap options: TIFR Mumbai and AIIMS New Delhi are NOT ENVIS centres." },
-          { id: "bev4", freq: "Asked 7/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "17 Sustainable Development Goals (SDGs) — identifying which option is NOT an official SDG.", ans: "There are 17 SDGs. Common fake trap options used by IGNOU: 'Gender Equity' (actual is Gender Equality), 'Clean Air', 'Quality Health Care', 'Social Equity'." },
-          { id: "bev5", freq: "Asked 7/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "Conventional vs Non-Conventional sources of energy (Atomic energy trap).", ans: "IGNOU classifies Atomic Energy and Fossil Fuels as CONVENTIONAL sources (asked 4x). Wind, Solar, Biomass, Geothermal are Non-Conventional." },
-          { id: "bev6", freq: "Asked 7/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "Waste treatment classification: Physical (Conditioning) vs Biological (Digestion, Composting, Lagooning).", ans: "Conditioning is ALWAYS the correct answer for Physical treatment (or 'NOT a biological treatment')—asked 5 times in 9 exams." },
-          { id: "bev7", freq: "Asked 6/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "'Sludge gas' largely consists of which gas? & Main reservoir of Sulphur in the biosphere.", ans: "Sludge gas = Methane (6x verbatim). Main Sulphur reservoir = Soil and Sediments (6x)." },
-          { id: "bev8", freq: "Asked 6/9 Sessions (2022–2026)", marks: "1 Mark MCQ", q: "Constitutional provisions for environmental protection in India (1976, 42nd Amendment, Art. 48A & 51A).", ans: "Year = 1976, Amendment = 42nd Amendment Act, Articles = 48A and 51A." }
-        ],
-        mock: {
-          durationMin: 15,
-          questions: [
-            { q: "Unattached aquatic organisms which live at the air-water interface are known as: (Asked 5x: 2022–2026)", opts: ["Periphyton", "Plankton", "Neuston", "Nekton"], ans: 2, exp: "Neuston live at the air-water interface. Periphyton attach to stems/roots, and Benthos live at the bottom." },
-            { q: "'Sludge gas' largely consists of: (Asked 6x: 2022–2026)", opts: ["Carbon dioxide", "Sulphur dioxide", "Hydrogen sulphide", "Methane"], ans: 3, exp: "Sludge gas produced during anaerobic digestion of sewage largely consists of Methane." },
-            { q: "Which one of the following is a conventional source of energy? (Asked 4x: 2023–2026)", opts: ["Wind energy", "Atomic energy", "Solar energy", "Geothermal energy"], ans: 1, exp: "In the IGNOU BEVAE-181 syllabus, Atomic energy and Fossil fuels are classified as conventional energy sources." },
-            { q: "Biodiversity hotspots are regions of high: (Asked 4x: 2022–2026)", opts: ["Productivity", "Endemism", "Alien species", "Uniform climate"], ans: 1, exp: "Hotspots are defined by exceptional species richness and high endemism under constant threat." },
-            { q: "Which one of the following is a physical treatment of hazardous waste? (Asked 5x: 2022–2025)", opts: ["Conditioning", "Digestion", "Composting", "Lagooning"], ans: 0, exp: "Conditioning is a physical treatment; digestion, composting, and lagooning are biological methods." },
-            { q: "The main reservoir of sulphur in the biosphere is present in: (Asked 6x: 2022–2025)", opts: ["Atmosphere", "Soil and sediments", "Volcanic eruptions", "Organisms"], ans: 1, exp: "Sulphur cycle is primarily a sedimentary cycle with its main reservoir in soil and sediments." },
-            { q: "The provision for environmental protection in the Constitution of India was made in the year: (Asked 4x)", opts: ["1972", "1974", "1976", "1986"], ans: 2, exp: "Added in 1976 via the 42nd Constitutional Amendment Act (Articles 48A and 51A)." },
-            { q: "Which one of the following methods of ex-situ conservation provides 'genetic insurance'? (Asked 2x: 2024, 2026)", opts: ["Tissue culture", "Seed bank", "Translocation", "Somatic cell cloning"], ans: 1, exp: "Seed banks preserve plant genetic diversity off-site, acting as genetic insurance against extinction." },
-            { q: "Holding meetings in remote locations or using English-only material for non-English communities represents: (Asked 4x)", opts: ["Geographical inequity", "Social inequity", "Procedural inequity", "Economic inequity"], ans: 2, exp: "Unfair rules, language barriers, or inaccessible meeting locations are examples of Procedural Inequity." },
-            { q: "Invasive species in India which causes skin allergies is: (Asked 3x: 2024–2025)", opts: ["Water hyacinth", "Sweet pea", "Congress weed", "Mesquite"], ans: 2, exp: "Congress weed (Parthenium hysterophorus) is an invasive alien species known for causing skin allergies." },
-            { q: "Which one of the following biogeographic zones covers the largest area in India? (Asked 4x: 2023–2026)", opts: ["The Western Ghats", "The Himalayas", "The Deccan Peninsula", "The Gangetic Plain"], ans: 2, exp: "The Deccan Peninsula is the largest biogeographic zone in India (~42% of India's landmass)." },
-            { q: "The best method for the disposal of radioactive nuclear waste is: (Asked 4x: 2022–2024)", opts: ["Incineration", "Underground disposal", "Dumping at sea", "Landfill disposal"], ans: 1, exp: "Deep underground geological disposal is preferred for isolating radioactive nuclear waste." },
-            { q: "Which one of the following is NOT a part of Lentic (standing water) ecosystems? (Asked 4x: 2024–2026)", opts: ["Lakes", "Impoundments", "Wetlands", "River"], ans: 3, exp: "Rivers are Lotic (flowing water) ecosystems, whereas lakes, pools, and wetlands are Lentic." },
-            { q: "Who developed/coined the concept of 'Determinism'? (Asked 3x: 2022, 2024, 2025)", opts: ["Friedrich Ratzel", "Lucien Febvre", "Charles Darwin", "Vidal de la Blache"], ans: 0, exp: "Friedrich Ratzel developed Determinism; Lucien Febvre coined Possibilism." },
-            { q: "Inter-Governmental Panel on Climate Change (IPCC) was established in 1988 by: (Asked 4x: 2022–2025)", opts: ["UNDP and UNEP", "WMO and UNEP", "WMO and UNDP", "UNESCO and UNEP"], ans: 1, exp: "IPCC was jointly established in 1988 by the World Meteorological Organization (WMO) and UNEP." }
-          ]
-        }
-      },
-      {
-        code: "BEGAE-182", name: "English Communication Skills", stream: "Compulsory", pattern: "Descriptive (50 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BEGAE-182.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BEGAE-182.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BEGAE-182.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BEGAE-182.pdf" },
-          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOH/BDP/BEGAE-182.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BEGAE-182.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BEGAE-182.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BEGAE-182.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BEGAE-182.pdf" }
-        ],
-        cheatsheet: { subtitle: "Core communication models, barriers, and formal writing formats.", items: [{ title: "7 Cs of Communication", body: "Clear, Concise, Concrete, Correct, Coherent, Complete, Courteous." }, { title: "Non-Verbal Terms", body: "Kinesics (body language), Proxemics (space), Paralanguage (tone/pitch), Chronemics (time)." }] },
-        repeated: [{ id: "beg1", freq: "High Yield", marks: "10 Marks", q: "Barriers to Effective Communication & How to Overcome Them.", ans: "Categorize into Physical, Semantic, Psychological, and Socio-cultural barriers with 3 remedies." }],
-        mock: { durationMin: 5, questions: [{ q: "Study of body language and gestures in communication is called:", opts: ["Proxemics", "Kinesics", "Semantics", "Chronemics"], ans: 1, exp: "Kinesics refers to body language and gestures." }] }
-      },
-      {
-        code: "BHDAE-182", name: "Hindi Bhasha Aur Sampreshan", stream: "Compulsory", pattern: "Descriptive (50 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BHDAE-182.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BHDAE-182.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BHDAE-182.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BHDAE-182.pdf" },
-          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOH/BDP/BHDAE-182.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BHDAE-182.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BHDAE-182.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BHDAE-182.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BHDAE-182.pdf" }
-        ],
-        cheatsheet: { subtitle: "Sampreshan ke prakar, Hindi vyakaran & lekhan kaushal.", items: [{ title: "Sampreshan (Communication)", body: "Maukhik (Verbal), Likhit (Written), and Amaukhik (Non-verbal) communication models." }] },
-        repeated: [{ id: "bhd1", freq: "High Yield", marks: "10 Marks", q: "Sampreshan ki avdharna, prakriya aur pramukh badhayein (Barriers).", ans: "Explain sender, message, channel, receiver, feedback, and language/psychological barriers." }],
-        mock: { durationMin: 5, questions: [{ q: "In communication, 'Pratipushti' refers to:", opts: ["Channel", "Feedback", "Encoding", "Noise"], ans: 1, exp: "Pratipushti means Feedback from the receiver." }] }
-      },
-      {
-        code: "BPSC-131", name: "Introduction to Political Theory", stream: "BA / BAG", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BPSC-131.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BPSC-131.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BPSC-131.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BPSC-131.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BPSC-131.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BPSC-131.pdf" }
-        ],
-        cheatsheet: { subtitle: "Key thinkers: Isaiah Berlin, John Rawls, Liberty, Equality & Rights.", items: [{ title: "Isaiah Berlin — Two Concepts of Liberty", body: "Negative Liberty = Freedom from interference. Positive Liberty = Self-mastery." }, { title: "John Rawls — Veil of Ignorance", body: "Justice as Fairness via Original Position & Difference Principle." }] },
-        repeated: [{ id: "bps1", freq: "High Yield", marks: "20 Marks", q: "Distinguish between Negative and Positive Liberty (Isaiah Berlin).", ans: "Compare Hobbes/Mill (Negative) with Rousseau/T.H. Green (Positive)." }],
-        mock: { durationMin: 5, questions: [{ q: "Who authored 'A Theory of Justice' (1971)?", opts: ["Isaiah Berlin", "John Rawls", "Karl Marx", "Robert Nozick"], ans: 1, exp: "John Rawls introduced the Veil of Ignorance in A Theory of Justice." }] }
-      },
-      {
-        code: "BPSC-132", name: "Indian Government and Politics", stream: "BA / BAG", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BPSC-132.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BPSC-132.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BPSC-132.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BPSC-132.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BPSC-132.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BPSC-132.pdf" }
-        ],
-        cheatsheet: { subtitle: "Fundamental Rights, DPSP, Federalism & Party System.", items: [{ title: "Fundamental Rights vs DPSP", body: "Part III (Justiciable) vs Part IV (Non-justiciable guiding principles for governance)." }] },
-        repeated: [{ id: "bps2", freq: "High Yield", marks: "20 Marks", q: "Salient features of the Indian Constitution & Fundamental Rights vs DPSP.", ans: "Cover Articles 12–35, Articles 36–51, and Kesavananda Bharati Basic Structure doctrine." }],
-        mock: { durationMin: 5, questions: [{ q: "Directive Principles of State Policy are in which Part of the Indian Constitution?", opts: ["Part II", "Part III", "Part IV", "Part V"], ans: 2, exp: "DPSP are enshrined in Part IV (Articles 36 to 51)." }] }
-      },
-      {
-        code: "BHIC-131", name: "History of India (Earliest Times to 300 CE)", stream: "BA / BAG", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BHIC-131.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BHIC-131.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BHIC-131.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BHIC-131.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BHIC-131.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BHIC-131.pdf" }
-        ],
-        cheatsheet: { subtitle: "Harappan Civilization, Vedic Period, Buddhism, Jainism & Mauryas.", items: [{ title: "Mauryan Administration", body: "Arthashastra (Kautilya), Indica (Megasthenes), Ashoka's Dhamma edicts." }] },
-        repeated: [{ id: "bhi1", freq: "High Yield", marks: "20 Marks", q: "Town planning, economy & decline of the Harappan Civilization.", ans: "Focus on Citadel/Lower Town, grid drainage, seals, Lothal dockyard, and ecological decline theories." }],
-        mock: { durationMin: 5, questions: [{ q: "Who authored 'Indica', describing Mauryan administration?", opts: ["Kautilya", "Megasthenes", "Fa-Hien", "Banabhatta"], ans: 1, exp: "Megasthenes was the Greek ambassador at Chandragupta Maurya's court." }] }
-      },
-      {
-        code: "BSOC-131", name: "Introduction to Sociology", stream: "BA / BAG", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BSOC-131.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BSOC-131.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BSOC-131.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BSOC-131.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BSOC-131.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BSOC-131.pdf" }
-        ],
-        cheatsheet: { subtitle: "Emergence of Sociology, Social Institutions, Culture & Socialisation.", items: [{ title: "Founding Fathers", body: "Auguste Comte (Positivism), Emile Durkheim (Social Facts), Max Weber (Social Action), Karl Marx (Class Conflict)." }] },
-        repeated: [{ id: "bso1", freq: "High Yield", marks: "20 Marks", q: "Emergence of Sociology in Europe (Enlightenment, French & Industrial Revolutions).", ans: "Explain how urbanization, decline of feudalism, and scientific rationality created Sociology." }],
-        mock: { durationMin: 5, questions: [{ q: "Who is regarded as the Father of Sociology?", opts: ["Max Weber", "Auguste Comte", "Emile Durkheim", "Herbert Spencer"], ans: 1, exp: "Auguste Comte coined the term Sociology." }] }
-      },
-      {
-        code: "BEGC-131", name: "Individual and Society", stream: "BA / BAG", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BEGC-131.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BEGC-131.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BEGC-131.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BEGC-131.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BEGC-131.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BEGC-131.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BEGC-131.pdf" },
-          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BEGC-131.pdf" }
-        ],
-        cheatsheet: { subtitle: "Comprehension, grammar rules, formal letters, reports & essay structures.", items: [{ title: "High-Scoring Exam Structure", body: "Always divide essays into Intro + 3 Body Paragraphs + Conclusion; keep formal letters strictly left-aligned." }] },
-        repeated: [{ id: "bgc1", freq: "High Yield", marks: "20 Marks", q: "Reading Comprehension, Dialogue Writing, and Formal Report / Letter formats.", ans: "Practice active/passive voice, tense transformations, and 250-word structured essays." }],
-        mock: { durationMin: 5, questions: [{ q: "Which voice is generally preferred in formal scientific/official reports?", opts: ["Passive Voice", "Exclamatory Voice", "Slang", "First-person casual"], ans: 0, exp: "Formal reports favor objective, impersonal phrasing often using passive voice." }] }
-      },
-      {
-        code: "BCOC-131", name: "Financial Accounting", stream: "B.Com", pattern: "Theory + Numericals (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-131.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-131.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-131.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-131.pdf" }
-        ],
-        cheatsheet: { subtitle: "GAAP concepts, 3 Golden Rules, Depreciation & Final Accounts.", items: [{ title: "Accounting Equation", body: "Assets = Liabilities + Capital (Dual Aspect Concept)." }, { title: "SLM Depreciation", body: "(Cost − Scrap Value) ÷ Useful Life." }] },
-        repeated: [{ id: "bco1", freq: "High Yield", marks: "20 Marks", q: "Accounting Concepts & Conventions (Going Concern, Dual Aspect, Conservatism) & SLM vs WDV.", ans: "Define GAAP, list 6 concepts with examples, and use a 5-point table for SLM vs WDV." }],
-        mock: { durationMin: 5, questions: [{ q: "Under which depreciation method does book value never hit zero?", opts: ["SLM", "WDV", "Annuity", "Depletion"], ans: 1, exp: "WDV applies a fixed % to the reducing balance every year." }] }
-      },
-      {
-        code: "BCOC-132", name: "Business Organisation & Management", stream: "B.Com", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-132.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-132.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-132.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-132.pdf" }
-        ],
-        cheatsheet: { subtitle: "Forms of Business, Fayol's Principles, Motivation & Leadership.", items: [{ title: "Forms of Ownership", body: "Sole Proprietorship, Partnership, Joint Stock Company, Cooperative Society, LLP." }] },
-        repeated: [{ id: "bco2", freq: "High Yield", marks: "20 Marks", q: "Difference between Sole Proprietorship, Partnership, and Joint Stock Company.", ans: "Compare on Liability, Continuity, Capital, Legal Status, and Registration." }],
-        mock: { durationMin: 5, questions: [{ q: "Which business form enjoys Perpetual Succession?", opts: ["Sole Proprietorship", "Partnership", "Joint Stock Company", "HUF"], ans: 2, exp: "A Joint Stock Company is a separate legal entity with perpetual succession." }] }
-      },
-      {
-        code: "BCOC-133", name: "Business Law", stream: "B.Com", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-133.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-133.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-133.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-133.pdf" }
-        ],
-        cheatsheet: { subtitle: "Indian Contract Act 1872, Sale of Goods Act 1930 & Partnership Act.", items: [{ title: "Essential Elements (Sec 10)", body: "Offer + Acceptance, Free Consent, Competent Parties, Lawful Consideration, Not expressly declared void." }] },
-        repeated: [{ id: "bco3", freq: "High Yield", marks: "20 Marks", q: "'All contracts are agreements, but all agreements are not contracts' — Explain essentials of a valid contract.", ans: "Quote Section 2(h) and Section 10 of the Indian Contract Act, 1872." }],
-        mock: { durationMin: 5, questions: [{ q: "An agreement enforceable by law is a:", opts: ["Promise", "Contract", "Offer", "Void agreement"], ans: 1, exp: "Under Section 2(h) of the Indian Contract Act, 1872, an agreement enforceable by law is a contract." }] }
-      },
-      {
-        code: "BCOC-134", name: "Business Mathematics & Statistics", stream: "B.Com", pattern: "Numerical (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-134.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-134.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-134.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-134.pdf" }
-        ],
-        cheatsheet: { subtitle: "Matrices, Calculus, Mean/Median/Mode, Correlation & Index Numbers.", items: [{ title: "Empirical Relation", body: "Mode = 3(Median) − 2(Mean)." }, { title: "Karl Pearson's Correlation (r)", body: "Always lies between −1 and +1." }] },
-        repeated: [{ id: "bco4", freq: "High Yield", marks: "20 Marks", q: "Karl Pearson's Coefficient of Correlation & Fisher's Ideal Index Number.", ans: "Memorize Fisher's formula = √(Laspeyres × Paasche) and prove Time/Factor Reversal Tests." }],
-        mock: { durationMin: 5, questions: [{ q: "Which index number satisfies both Time Reversal and Factor Reversal tests?", opts: ["Laspeyres", "Paasche", "Fisher's Ideal Index", "Bowley's Index"], ans: 2, exp: "Fisher's Ideal Index is the geometric mean of Laspeyres and Paasche indices." }] }
-      },
-      {
-        code: "BCS-011", name: "Computer Basics & PC Software", stream: "BCA", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCS-011.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCS-011.pdf" },
-          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/BCS-011.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/BCS-011.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/BCS-011.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/BCS-011.pdf" }
-        ],
-        cheatsheet: { subtitle: "Von Neumann Architecture, Memory Hierarchy, Number Systems & OSI Model.", items: [{ title: "OSI 7 Layers", body: "Physical → Data Link → Network → Transport → Session → Presentation → Application." }] },
-        repeated: [{ id: "bcs1", freq: "High Yield", marks: "10 Marks", q: "Von Neumann Architecture with Block Diagram & Binary/Hex conversions.", ans: "Draw Input → CPU (ALU+CU+Registers) ↔ Memory → Output." }],
-        mock: { durationMin: 5, questions: [{ q: "Which OSI layer handles IP addressing and routing?", opts: ["Data Link", "Network", "Transport", "Session"], ans: 1, exp: "Layer 3 (Network Layer) handles logical IP addressing and routing." }] }
-      },
-      {
-        code: "BCS-012", name: "Basic Mathematics", stream: "BCA", pattern: "Numerical (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCS-012.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCS-012.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCS-012.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCS-012.pdf" },
-          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/BCS-012.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/BCS-012.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/BCS-012.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/BCS-012.pdf" }
-        ],
-        cheatsheet: { subtitle: "Determinants, Matrix Inverse, Mathematical Induction, AP/GP & LPP.", items: [{ title: "Matrix Inverse", body: "A⁻¹ = adj(A) / |A|, exists only when |A| ≠ 0." }] },
-        repeated: [{ id: "bcs2", freq: "High Yield", marks: "10 Marks", q: "Cramer's Rule / Matrix Inverse Method & Principle of Mathematical Induction.", ans: "Practice 3-step PMI (Base case n=1, Hypothesis n=k, Prove n=k+1)." }],
-        mock: { durationMin: 5, questions: [{ q: "A square matrix A is invertible if and only if |A| is:", opts: ["0", "Not equal to 0", "1", "Negative"], ans: 1, exp: "Only non-singular matrices (|A| ≠ 0) have an inverse." }] }
-      },
-      {
-        code: "MCS-011", name: "Problem Solving & Programming (C)", stream: "BCA", pattern: "Coding + Theory (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/MCS-011.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MCS-011.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MCS-011.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MCS-011.pdf" },
-          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/MCS-011.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/MCS-011.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/MCS-011.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/MCS-011.pdf" }
-        ],
-        cheatsheet: { subtitle: "Pointers, Recursion, Structures vs Unions, File Handling in C.", items: [{ title: "Call by Value vs Reference", body: "Call by Value copies data; Call by Reference passes memory addresses via pointers." }] },
-        repeated: [{ id: "mcs1", freq: "High Yield", marks: "10 Marks", q: "Difference between Structure & Union, and Recursive C program for Factorial/Fibonacci.", ans: "Always write clean syntax with #include<stdio.h> and dry-run output." }],
-        mock: { durationMin: 5, questions: [{ q: "In C, which operator returns the memory address of a variable?", opts: ["*", "&", "->", "%"], ans: 1, exp: "The '&' (address-of) operator returns a variable's memory address." }] }
-      },
-      {
-        code: "BCS-040", name: "Statistical Techniques", stream: "BCA", pattern: "Numerical (50 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCS-040.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCS-040.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCS-040.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCS-040.pdf" },
-          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/BCS-040.pdf" },
-          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/BCS-040.pdf" },
-          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/BCS-040.pdf" },
-          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/BCS-040.pdf" }
-        ],
-        cheatsheet: { subtitle: "Probability Distributions, t-test, Chi-Square, ANOVA & Regression.", items: [{ title: "Binomial vs Poisson", body: "Binomial = fixed n trials. Poisson = rare events where Mean = Variance = λ." }] },
-        repeated: [{ id: "bcs40", freq: "High Yield", marks: "10 Marks", q: "Chi-Square Test of Independence, One-Way ANOVA & Control Charts.", ans: "Memorize χ² = Σ(O − E)² / E and degrees of freedom df = (r−1)(c−1)." }],
-        mock: { durationMin: 5, questions: [{ q: "For a Poisson distribution, Mean and Variance are:", opts: ["Equal", "Zero", "Mean > Variance", "Unrelated"], ans: 0, exp: "In a Poisson distribution, Mean = Variance = λ." }] }
-      },
-      {
-        code: "MMPC-001", name: "Management Functions & Org Processes", stream: "MBA / M.Com", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/MMPC-001.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MMPC-001.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MMPC-001.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MMPC-001.pdf" }
-        ],
-        cheatsheet: { subtitle: "Fayol, Taylor, Mintzberg's Roles, Planning & Organisational Structure.", items: [{ title: "PODSCORB (Luther Gulick)", body: "Planning, Organizing, Directing, Staffing, Coordinating, Reporting, Budgeting." }] },
-        repeated: [{ id: "mmp1", freq: "High Yield", marks: "20 Marks", q: "Fayol's 14 Principles vs Taylor's Scientific Management & Decision-Making Process.", ans: "Structure with intro, comparison table, and modern corporate example." }],
-        mock: { durationMin: 5, questions: [{ q: "Who is the Father of Scientific Management?", opts: ["Henry Fayol", "F.W. Taylor", "Max Weber", "Elton Mayo"], ans: 1, exp: "F.W. Taylor pioneered Scientific Management." }] }
-      },
-      {
-        code: "MMPC-002", name: "Human Resource Management", stream: "MBA / M.Com", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/MMPC-002.pdf" },
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MMPC-002.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MMPC-002.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MMPC-002.pdf" }
-        ],
-        cheatsheet: { subtitle: "Job Analysis, Recruitment, Performance Appraisal & Industrial Relations.", items: [{ title: "Job Description vs Specification", body: "Description = Duties & responsibilities of the job. Specification = Qualifications & skills required in the person." }] },
-        repeated: [{ id: "mmp2", freq: "High Yield", marks: "20 Marks", q: "Methods of Performance Appraisal (360-Degree, MBO, BARS) & Training vs Development.", ans: "Contrast traditional vs modern appraisal methods with pros and cons." }],
-        mock: { durationMin: 5, questions: [{ q: "Which appraisal method collects feedback from peers, subordinates, supervisors, and clients?", opts: ["MBO", "360-Degree Appraisal", "Ranking", "Checklist"], ans: 1, exp: "360-degree feedback evaluates an employee from all surrounding stakeholders." }] }
-      },
-      {
-        code: "MCO-01", name: "Organisation Theory & Behaviour", stream: "MBA / M.Com", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MCO-01.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MCO-01.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MCO-01.pdf" }
-        ],
-        cheatsheet: { subtitle: "Motivation Theories (Maslow, Herzberg), Leadership & Group Dynamics.", items: [{ title: "Herzberg's Two-Factor Theory", body: "Hygiene factors prevent dissatisfaction; Motivators create true job satisfaction." }] },
-        repeated: [{ id: "mco1", freq: "High Yield", marks: "20 Marks", q: "Maslow's Need Hierarchy vs Herzberg's Two-Factor Theory of Motivation.", ans: "Draw Maslow's 5-tier pyramid and map Hygiene vs Motivators directly beside it." }],
-        mock: { durationMin: 5, questions: [{ q: "In Herzberg's theory, salary and company policy are classified as:", opts: ["Motivators", "Hygiene Factors", "Self-actualizers", "Intrinsic rewards"], ans: 1, exp: "Salary and policy are Hygiene factors that prevent dissatisfaction." }] }
-      },
-      {
-        code: "MCO-04", name: "Business Environment", stream: "MBA / M.Com", pattern: "Descriptive (100 Marks)",
-        pyqs: [
-          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MCO-04.pdf" },
-          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MCO-04.pdf" },
-          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MCO-04.pdf" }
-        ],
-        cheatsheet: { subtitle: "LPG Reforms 1991, Monetary/Fiscal Policy, WTO & Consumer Protection.", items: [{ title: "Macro Environment (PESTLE)", body: "Political, Economic, Social, Technological, Legal, Environmental factors." }] },
-        repeated: [{ id: "mco4", freq: "High Yield", marks: "20 Marks", q: "Impact of 1991 Economic Reforms (Liberalisation, Privatisation, Globalisation) on Indian Industry.", ans: "Cover delicensing, FDI inflow, disinvestment, and MSME competition." }],
-        mock: { durationMin: 5, questions: [{ q: "LPG economic reforms in India were introduced in which year?", opts: ["1985", "1991", "1995", "2000"], ans: 1, exp: "India launched Liberalisation, Privatisation, and Globalisation reforms in July 1991." }] }
-      }
-    ];
-
-    // ========= STATE =========
-    let paperStream = "ALL";
-    let activeSheetCode = SUBJECTS[0].code;
-    let mastered = JSON.parse(localStorage.getItem("ev_done_qs") || "{}");
-    let cbt = { subject: null, idx: 0, answers: {}, review: {}, secs: 0, timerId: null };
-
-    // ========= TOP LIVE TIMER =========
-    const examEnd = new Date("2027-01-14T17:00:00+05:30").getTime();
-    function tickTopTimer() {
-      const diff = Math.max(0, examEnd - Date.now());
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      document.getElementById("topTimer").textContent = `${d}d ${h}h ${m}m`;
+    let tmr;
+    function notifySoon(name) {
+      const el = document.getElementById("toast");
+      el.textContent = name + " vault is coming soon!";
+      el.classList.add("show");
+      clearTimeout(tmr);
+      tmr = setTimeout(() => el.classList.remove("show"), 2200);
     }
-    tickTopTimer();
-    setInterval(tickTopTimer, 30000);
-
-    // ========= NAVIGATION =========
-    function switchView(viewName) {
-      clearInterval(cbt.timerId);
-      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-      document.getElementById("view-" + viewName).classList.add("active");
-      document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.view === viewName));
-      if (viewName === "mocks") {
-        document.getElementById("mockLobby").style.display = "block";
-        document.getElementById("mockRunner").style.display = "none";
-      }
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function runHomeSearch() {
-      const q = document.getElementById("homeSearch").value.trim();
-      document.getElementById("paperSearch").value = q;
-      switchView("papers");
-      renderPapers();
-    }
-
-    // ========= 1. HOME QUICK GRID =========
-    function renderHomeQuick() {
-      document.getElementById("homeQuickGrid").innerHTML = SUBJECTS.slice(0, 6).map(s => `
-        <div class="card">
-          <div class="tag-row">
-            <span class="code-tag">${s.code}</span>
-            <span class="meta-tag">${s.stream}</span>
-          </div>
-          <div>
-            <h3 style="font-size:1.05rem;">${s.name}</h3>
-            <p style="font-size:0.82rem; color:var(--muted); margin-top:4px;">${s.pattern} • ${s.pyqs.length} PYQs</p>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:auto;">
-            <button class="btn btn-primary btn-sm" onclick="switchView('mocks'); startCBT('${s.code}')">Free Mock</button>
-            <button class="btn btn-outline btn-sm" onclick="activeSheetCode='${s.code}'; renderCheatSheets(); switchView('cheatsheets')">Cheat Sheet</button>
-            <button class="btn btn-outline btn-sm" onclick="document.getElementById('paperSearch').value='${s.code}'; renderPapers(); switchView('papers')">PYQs</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    // ========= 2. FREE MOCK TEST ARENA & CBT ENGINE =========
-    function renderMockLobby() {
-      document.getElementById("mockCardsGrid").innerHTML = SUBJECTS.map(s => `
-        <div class="card">
-          <div class="tag-row">
-            <span class="code-tag">${s.code}</span>
-            <span class="badge-free">100% Free</span>
-          </div>
-          <div>
-            <h3 style="font-size:1.08rem;">${s.name} — CBT Mini Mock</h3>
-            <p style="font-size:0.84rem; color:var(--muted); margin-top:6px;">
-              ⏱ ${s.mock.durationMin} Mins &nbsp;•&nbsp; 📝 ${s.mock.questions.length} High-Yield Qs &nbsp;•&nbsp; ✅ Instant Solutions
-            </p>
-          </div>
-          <button class="btn btn-primary" style="margin-top:auto;" onclick="startCBT('${s.code}')">Start Free Mock Test →</button>
-        </div>
-      `).join("");
-    }
-
-    function startCBT(code) {
-      const s = SUBJECTS.find(x => x.code === code);
-      clearInterval(cbt.timerId);
-      cbt = { subject: s, idx: 0, answers: {}, review: {}, secs: s.mock.durationMin * 60, timerId: null };
-      document.getElementById("mockLobby").style.display = "none";
-      document.getElementById("mockRunner").style.display = "block";
-      renderCBT();
-      cbt.timerId = setInterval(() => {
-        cbt.secs--;
-        const t = document.getElementById("cbtTimerVal");
-        if (t) t.textContent = fmtTime(cbt.secs);
-        if (cbt.secs <= 0) submitCBT();
-      }, 1000);
-    }
-
-    function fmtTime(sec) {
-      const m = Math.floor(Math.max(0, sec) / 60);
-      const s = Math.max(0, sec) % 60;
-      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-    }
-
-    function renderCBT() {
-      const qs = cbt.subject.mock.questions;
-      const q = qs[cbt.idx];
-      const letters = ["A", "B", "C", "D"];
-      const chosen = cbt.answers[cbt.idx];
-
-      document.getElementById("mockRunner").innerHTML = `
-        <div class="cbt-shell">
-          <div class="cbt-main">
-            <div class="cbt-header">
-              <div>
-                <span class="code-tag">${cbt.subject.code}</span>
-                <strong style="margin-left:8px;">${cbt.subject.name}</strong>
-              </div>
-              <div class="cbt-timer">⏱ <span id="cbtTimerVal">${fmtTime(cbt.secs)}</span></div>
-            </div>
-
-            <div style="font-size:0.82rem; font-weight:700; color:var(--muted); margin-bottom:8px;">QUESTION ${cbt.idx + 1} OF ${qs.length}</div>
-            <h3 style="font-size:1.12rem; margin-bottom:20px; line-height:1.45;">${q.q}</h3>
-
-            <div>
-              ${q.opts.map((opt, i) => `
-                <button class="opt-card ${chosen === i ? 'selected' : ''}" onclick="pickAnswer(${i})">
-                  <span class="opt-bullet">${letters[i]}</span>
-                  <span>${opt}</span>
-                </button>
-              `).join("")}
-            </div>
-
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:22px; padding-top:18px; border-top:1px solid var(--border);">
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-outline btn-sm" onclick="toggleReview()">${cbt.review[cbt.idx] ? '★ Marked' : '☆ Mark for Review'}</button>
-                <button class="btn btn-outline btn-sm" onclick="delete cbt.answers[cbt.idx]; renderCBT()">Clear</button>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-outline btn-sm" ${cbt.idx === 0 ? 'disabled' : ''} onclick="cbt.idx--; renderCBT()">← Prev</button>
-                ${cbt.idx < qs.length - 1
-                  ? `<button class="btn btn-primary btn-sm" onclick="cbt.idx++; renderCBT()">Save &amp; Next →</button>`
-                  : `<button class="btn btn-emerald btn-sm" onclick="submitCBT()">Submit Test ✓</button>`
-                }
-              </div>
-            </div>
-          </div>
-
-          <aside class="cbt-side">
-            <h4 style="font-size:0.95rem;">Question Palette</h4>
-            <p style="font-size:0.78rem; color:var(--muted); margin-top:2px;">Click any number to jump directly.</p>
-            <div class="palette-grid">
-              ${qs.map((_, i) => {
-                let cls = "p-num";
-                if (i === cbt.idx) cls += " current";
-                if (cbt.review[i]) cls += " review";
-                else if (cbt.answers[i] !== undefined) cls += " answered";
-                return `<button class="${cls}" onclick="cbt.idx=${i}; renderCBT()">${i + 1}</button>`;
-              }).join("")}
-            </div>
-            <div style="font-size:0.76rem; color:var(--muted); display:flex; flex-direction:column; gap:5px; margin-bottom:18px;">
-              <div><span style="color:var(--emerald);">●</span> Answered &nbsp; <span style="color:var(--amber);">●</span> Marked for Review</div>
-            </div>
-            <button class="btn btn-emerald" style="width:100%;" onclick="submitCBT()">Submit Final Test</button>
-            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px;" onclick="switchView('mocks')">Exit to Lobby</button>
-          </aside>
-        </div>
-      `;
-    }
-
-    function pickAnswer(i) { cbt.answers[cbt.idx] = i; renderCBT(); }
-    function toggleReview() { cbt.review[cbt.idx] = !cbt.review[cbt.idx]; renderCBT(); }
-
-    function submitCBT() {
-      clearInterval(cbt.timerId);
-      const qs = cbt.subject.mock.questions;
-      let correct = 0, attempted = 0;
-      qs.forEach((q, i) => {
-        if (cbt.answers[i] !== undefined) {
-          attempted++;
-          if (cbt.answers[i] === q.ans) correct++;
-        }
-      });
-      const pct = Math.round((correct / qs.length) * 100);
-
-      document.getElementById("mockRunner").innerHTML = `
-        <div class="card" style="max-width:860px; margin:0 auto; padding:30px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-            <div>
-              <span class="code-tag">${cbt.subject.code}</span>
-              <h2 style="margin-top:8px;">Test Result &amp; Detailed Solutions</h2>
-            </div>
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-primary btn-sm" onclick="startCBT('${cbt.subject.code}')">Retake Test ↻</button>
-              <button class="btn btn-outline btn-sm" onclick="switchView('mocks')">All Mock Tests</button>
-            </div>
-          </div>
-
-          <div class="score-grid">
-            <div class="score-box"><div class="score-val" style="color:var(--primary);">${pct}%</div><div style="font-size:0.8rem; color:var(--muted);">Overall Score</div></div>
-            <div class="score-box"><div class="score-val" style="color:var(--emerald);">${correct} / ${qs.length}</div><div style="font-size:0.8rem; color:var(--muted);">Correct Answers</div></div>
-            <div class="score-box"><div class="score-val">${attempted} / ${qs.length}</div><div style="font-size:0.8rem; color:var(--muted);">Attempted</div></div>
-          </div>
-
-          ${cbt.subject.code === 'BEVAE-181' ? `
-            <div class="bundle-banner" style="margin: 16px 0 22px;">
-              <div>
-                <h3 style="font-size:1rem; margin-bottom:4px;">Want all 100 Most Repeated BEVAE-181 Solved MCQs + Exam Traps?</h3>
-                <p style="font-size:0.84rem; color:var(--ink-2);">Download the complete 2022–2026 Master Revision PDF + 4 Printable Memory Sheets via instant UPI.</p>
-              </div>
-              <a class="btn btn-emerald btn-sm" href="https://topmate.io/examvault/2428756" target="_blank" rel="noopener">Download PDF — ₹79 ↗</a>
-            </div>
-          ` : ''}
-          <h3 style="margin-top:10px; font-size:1.05rem;">Answer Key &amp; Explanations</h3>
-          ${qs.map((q, i) => {
-            const u = cbt.answers[i];
-            const isRight = u === q.ans;
-            return `
-              <div style="padding:16px; border:1px solid ${isRight ? '#a7f3d0' : '#fecdd3'}; background:${isRight ? '#f0fdf4' : '#fff1f2'}; border-radius:12px;">
-                <div style="font-weight:700; margin-bottom:6px;">Q${i + 1}. ${q.q}</div>
-                <div style="font-size:0.85rem;">
-                  <strong>Your Answer:</strong> ${u !== undefined ? q.opts[u] : 'Skipped'} &nbsp;|&nbsp;
-                  <strong style="color:var(--emerald);">Correct Answer:</strong> ${q.opts[q.ans]}
-                </div>
-                <p style="font-size:0.84rem; color:var(--ink-2); margin-top:6px;"><strong>Explanation:</strong> ${q.exp}</p>
-              </div>
-            `;
-          }).join("")}
-        </div>
-      `;
-    }
-
-    // ========= 3. QUESTION PAPERS VAULT =========
-    function setPaperStream(st, btn) {
-      paperStream = st;
-      document.querySelectorAll("#paperPills .pill").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      renderPapers();
-    }
-
-    function renderPapers() {
-      const q = (document.getElementById("paperSearch").value || "").toLowerCase();
-      const list = SUBJECTS.filter(s =>
-        (paperStream === "ALL" || s.stream === paperStream) &&
-        (!q || s.code.toLowerCase().includes(q) || s.name.toLowerCase().includes(q) || s.stream.toLowerCase().includes(q))
-      );
-      document.getElementById("papersGrid").innerHTML = list.length ? list.map(s => `
-        <div class="card">
-          <div class="tag-row">
-            <span class="code-tag">${s.code}</span>
-            <span class="meta-tag">${s.stream}</span>
-          </div>
-          <div>
-            <h3 style="font-size:1.06rem;">${s.name}</h3>
-            <p style="font-size:0.8rem; color:var(--muted); margin-top:3px;">${s.pattern}</p>
-          </div>
-          <div class="pyq-chips">
-            ${s.pyqs.map(p => `
-              <a class="pyq-chip" href="${p.url}" target="_blank" rel="noopener">
-                📄 ${p.session} ↓
-              </a>
-            `).join("")}
-          </div>
-          ${s.code === 'BEVAE-181' ? `
-            <a class="btn btn-emerald btn-sm" href="https://topmate.io/examvault/2428756" target="_blank" rel="noopener" style="margin-top:auto; width:100%;">
-              🔥 Buy BEVAE-181 Solved Master Pack (100 MCQs) — ₹79 ↗
-            </a>
-          ` : ''}
-        </div>
-      `).join("") : `<div class="card" style="grid-column:1/-1; text-align:center; color:var(--muted);">No question papers match your filter.</div>`;
-    }
-
-    // ========= 4. CHEAT SHEETS =========
-    function renderCheatSheets() {
-      document.getElementById("sheetSidebar").innerHTML = SUBJECTS.map(s => `
-        <button class="sheet-nav-btn ${s.code === activeSheetCode ? 'active' : ''}" onclick="activeSheetCode='${s.code}'; renderCheatSheets()">
-          <strong>${s.code}</strong>
-          <span>${s.name}</span>
-        </button>
-      `).join("");
-
-      const s = SUBJECTS.find(x => x.code === activeSheetCode);
-      document.getElementById("sheetContent").innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; padding-bottom:16px; border-bottom:1px solid var(--border);">
-          <div>
-            <span class="code-tag">${s.code} • ${s.stream}</span>
-            <h2 style="margin-top:8px; font-size:1.45rem;">${s.name} — Quick Revision Cheat Sheet</h2>
-            <p style="color:var(--muted); font-size:0.9rem; margin-top:4px;">${s.cheatsheet.subtitle}</p>
-          </div>
-          <button class="btn btn-primary btn-sm no-print" onclick="switchView('mocks'); startCBT('${s.code}')">Test Yourself on This →</button>
-        </div>
-
-        <div class="formula-grid">
-          ${s.cheatsheet.items.map(item => `
-            <div class="formula-box">
-              <h4>${item.title}</h4>
-              <p>${item.body}</p>
-            </div>
-          `).join("")}
-        </div>
-      `;
-    }
-
-    // ========= 5. MOST REPEATED QUESTIONS =========
-    function initRqDropdown() {
-      const sel = document.getElementById("rqSubjectFilter");
-      sel.innerHTML = `<option value="ALL">All Subjects</option>` + SUBJECTS.map(s => `<option value="${s.code}">${s.code} — ${s.name}</option>`).join("");
-    }
-
-    function renderRepeated() {
-      const filter = document.getElementById("rqSubjectFilter").value;
-      const items = [];
-      SUBJECTS.forEach(s => {
-        if (filter === "ALL" || s.code === filter) {
-          s.repeated.forEach(r => items.push({ ...r, code: s.code, subName: s.name }));
-        }
-      });
-
-      document.getElementById("rqList").innerHTML = items.map(r => `
-        <div class="rq-item ${mastered[r.id] ? 'done' : ''}">
-          <div class="rq-top">
-            <div>
-              <span class="code-tag" style="margin-right:8px;">${r.code}</span>
-              <span class="freq-badge">🔥 ${r.freq}</span>
-            </div>
-            <span class="meta-tag mono">${r.marks}</span>
-          </div>
-          <div class="rq-title">${r.q}</div>
-          <div class="rq-foot">
-            <label style="display:inline-flex; align-items:center; gap:8px; font-size:0.84rem; font-weight:600; cursor:pointer;">
-              <input type="checkbox" ${mastered[r.id] ? 'checked' : ''} onchange="toggleDone('${r.id}', this.checked)" style="width:16px; height:16px; accent-color:var(--emerald);" />
-              Mark as Revised
-            </label>
-            <button class="btn btn-outline btn-sm" onclick="document.getElementById('ans-${r.id}').classList.toggle('open')">View Exam Answer Framework ▾</button>
-          </div>
-          <div class="rq-ans" id="ans-${r.id}"><strong>How to write for full marks:</strong> ${r.ans}</div>
-        </div>
-      `).join("");
-    }
-
-    function toggleDone(id, checked) {
-      if (checked) mastered[id] = true; else delete mastered[id];
-      localStorage.setItem("ev_done_qs", JSON.stringify(mastered));
-      renderRepeated();
-    }
-
-    // ========= TOAST =========
-    let toastTimer;
-    function showToast(msg) {
-      const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
-    }
-
-    // INIT
-    renderHomeQuick();
-    renderMockLobby();
-    renderPapers();
-    renderCheatSheets();
-    initRqDropdown();
-    renderRepeated();
   </script>
 </body>
 </html>
