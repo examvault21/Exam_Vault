@@ -736,11 +736,12 @@
 
       <div class="bundle-banner">
         <div>
-          <h3 style="font-size:1.1rem; margin-bottom:4px;">Need all Top 20 Repeated Questions Fully Solved in 1 Printable PDF?</h3>
-          <p style="font-size:0.88rem; color:var(--ink-2);">Skip hours of textbook hunting. Get clean, mark-wise model answers + last-night cheat sheet via instant UPI.</p>
+          <h3 style="font-size:1.1rem; margin-bottom:4px;">BEVAE-181 Master Revision Pack — 100 Most Repeated Solved MCQs + 4 Memory Sheets</h3>
+          <p style="font-size:0.88rem; color:var(--ink-2);">Built from 9 official IGNOU sessions (June 2022 – June 2026). Includes all 4 options, explanations, exam traps &amp; 1-page printable cheat sheets.</p>
         </div>
-        <button class="btn btn-emerald" onclick="showToast('Attach your Cosmofeed / Razorpay ₹79 UPI link here!')">Get Solved Revision Pack — ₹79</button>
+        <a class="btn btn-emerald" href="https://topmate.io/examvault/2428756" target="_blank" rel="noopener">Get BEVAE-181 Pack — ₹79 ↗</a>
       </div>
+    </section>
     </section>
 
     <!-- ==================== 4. CHEAT SHEETS & FORMULA BOOKLETS ==================== -->
@@ -1300,6 +1301,15 @@
             <div class="score-box"><div class="score-val">${attempted} / ${qs.length}</div><div style="font-size:0.8rem; color:var(--muted);">Attempted</div></div>
           </div>
 
+          ${cbt.subject.code === 'BEVAE-181' ? `
+            <div class="bundle-banner" style="margin: 16px 0 22px;">
+              <div>
+                <h3 style="font-size:1rem; margin-bottom:4px;">Want all 100 Most Repeated BEVAE-181 Solved MCQs + Exam Traps?</h3>
+                <p style="font-size:0.84rem; color:var(--ink-2);">Download the complete 2022–2026 Master Revision PDF + 4 Printable Memory Sheets via instant UPI.</p>
+              </div>
+              <a class="btn btn-emerald btn-sm" href="https://topmate.io/examvault/2428756" target="_blank" rel="noopener">Download PDF — ₹79 ↗</a>
+            </div>
+          ` : ''}
           <h3 style="margin-top:10px; font-size:1.05rem;">Answer Key &amp; Explanations</h3>
           ${qs.map((q, i) => {
             const u = cbt.answers[i];
