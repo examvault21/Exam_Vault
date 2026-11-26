@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IGNOU Vault — Exam Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F5EFE6;
+      --surface: #FFFDF9;
+      --linen: #EBE3D5;
+      --border: #DDD3C3;
+      --ink: #1C1917;
+      --ink-2: #3F3A36;
+      --muted: #6B635B;
+      --terracotta: #C25934;
+      --terracotta-hover: #A64827;
+      --terracotta-soft: #FAEBE4;
+      --forest: #2E6F40;
+      --forest-hover: #235732;
+      --forest-soft: #E6F2EA;
+      --amber: #B45309;
+      --amber-soft: #FEF3C7;
+      --shadow: 0 8px 24px -8px rgba(28, 25, 23, 0.08);
+      --shadow-lg: 0 24px 48px -14px rgba(28, 25, 23, 0.16);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    h1, h2, h3, .serif { font-family: 'Fraunces', serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Header */
+    header {
+      background: rgba(245, 239, 230, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .nav-wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-left { display: flex; align-items: center; gap: 14px; }
+    .back-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: var(--linen);
+      transition: all 0.15s;
+    }
+    .back-link:hover { color: var(--ink); background: var(--border); }
+    .brand {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand span { color: var(--terracotta); }
+
+    /* Container */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    /* Top Course + Search Bar */
+    .top-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .top-row h1 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.02em; }
+
+    /* Smart Search with Live Suggestions */
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 12px 92px 12px 40px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-box input:focus { border-color: var(--terracotta); background: var(--surface); }
+    .search-box svg {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+    .search-btn {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      border-radius: 9px;
+      padding: 7px 14px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .suggestions {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-lg);
+      z-index: 60;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .suggestions.open { display: block; }
+    .sug-row {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--linen);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .sug-row:last-child { border-bottom: none; }
+    .sug-row:hover { background: var(--bg); }
+
+    /* Course Selector Tiles */
+    .course-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .course-grid {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .course-pill {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      color: var(--ink-2);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .course-pill:hover { border-color: var(--terracotta); color: var(--terracotta); }
+    .course-pill.active {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    /* Syllabus Subject Grid */
+    .section-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .section-bar h2 { font-size: 1.35rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: var(--terracotta-soft);
+      color: var(--terracotta);
+      padding: 4px 10px;
+      border-radius: 7px;
+    }
+    .pattern-tag { font-size: 0.76rem; color: var(--muted); font-weight: 600; }
+
+    .pyq-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .pyq-chip {
+      text-decoration: none;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+      padding: 6px 11px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .pyq-chip:hover { border-color: var(--terracotta); color: var(--terracotta); background: var(--terracotta-soft); }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--linen);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-dark { background: var(--ink); color: var(--bg); }
+    .btn-dark:hover { background: #332E2A; }
+    .btn-outline { background: var(--surface); color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-outline:hover { background: var(--linen); }
+    .btn-buy { background: var(--forest); color: #fff; width: 100%; padding: 11px 14px; }
+    .btn-buy:hover { background: var(--forest-hover); }
+
+    /* Modal for CBT Mock & Cheat Sheet */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 25, 23, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      padding: 20px;
+      overflow-y: auto;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .modal-bg.open { display: flex; }
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      max-width: 780px;
+      width: 100%;
+      padding: 28px;
+      margin: 24px auto;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--linen);
+      gap: 12px;
+    }
+    .close-btn {
+      background: var(--linen);
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 99px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 15px;
+      margin-bottom: 9px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .opt-btn.selected { border-color: var(--terracotta); background: var(--terracotta-soft); font-weight: 700; }
+
+    .sheet-card {
+      background: var(--bg);
+      border-left: 4px solid var(--terracotta);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .sheet-card h4 { font-size: 0.92rem; margin-bottom: 4px; }
+    .sheet-card p { font-size: 0.84rem; color: var(--ink-2); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-wrap">
+      <div class="nav-left">
+        <a class="back-link" href="index.html">← All Exams</a>
+        <a class="brand" href="ignou.html">IGNOU <span>Vault</span></a>
+      </div>
+      <a class="btn" style="background:var(--forest); color:#fff;" href="https://topmate.io/examvault/2428756" target="_blank" rel="noopener">BEVAE-181 Solved PDF — ₹79 ↗</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="top-panel">
+      <div class="top-row">
+        <h1>What is your IGNOU course?</h1>
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="searchInput" type="text" autocomplete="off" placeholder="Search subject (e.g., BEVAE-181, BCOC-131)..." oninput="handleSearchInput()" onkeydown="if(event.key==='Enter') applySearch()" />
+          <button class="search-btn" onclick="applySearch()">Search</button>
+          <div class="suggestions" id="suggestionsBox"></div>
+        </div>
+      </div>
+
+      <div class="course-label">Select Course to View Syllabus Papers</div>
+      <div class="course-grid" id="coursePills">
+        <button class="course-pill active" onclick="selectCourse('ALL', this)">All Courses</button>
+        <button class="course-pill" onclick="selectCourse('BAG', this)">B.A. / BAG</button>
+        <button class="course-pill" onclick="selectCourse('BCOMG', this)">B.Com / BCOMG</button>
+        <button class="course-pill" onclick="selectCourse('BSCG', this)">B.Sc / BSCG</button>
+        <button class="course-pill" onclick="selectCourse('BCA', this)">BCA</button>
+        <button class="course-pill" onclick="selectCourse('MBA', this)">MBA</button>
+        <button class="course-pill" onclick="selectCourse('MCOM', this)">M.Com</button>
+      </div>
+    </div>
+
+    <div class="section-bar">
+      <h2 id="syllabusHeading">All Syllabus Papers</h2>
+      <button id="clearFilterBtn" class="btn btn-outline" style="display:none;" onclick="clearSearch()">Clear Search ✕</button>
+    </div>
+
+    <div class="grid" id="subjectsGrid"></div>
+  </main>
+
+  <!-- MODAL FOR MOCK TEST / CHEAT SHEET -->
+  <div class="modal-bg" id="modalBg" onclick="if(event.target===this) closeModal()">
+    <div class="modal-box" id="modalContent"></div>
+  </div>
+
+  <script>
+    const SUBJECTS = [
+      {
+        code: "BEVAE-181", name: "Environmental Studies (AECC)", courses: ["BAG", "BCOMG", "BSCG"], pattern: "MCQ / OMR (50 Marks)",
+        paidUrl: "https://topmate.io/examvault/2428756", paidLabel: "Buy Solved Master Pack (100 MCQs + Cheat Sheets) — ₹79",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BEVAE-181.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BEVAE-181.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BEVAE-181.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BEVAE-181.pdf" },
+          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOH/BDP/BEVAE-181.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BEVAE-181.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BEVAE-181.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BEVAE-181.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BEVAE-181.pdf" }
+        ],
+        cheatsheet: [
+          { title: "Aquatic Organisms (9/9 Exams)", body: "Neuston = air-water interface (unattached). Periphyton = attached to plant stems. Benthos = bottom of water mass." },
+          { title: "Sludge Gas & Sulphur (6/9 Exams)", body: "Sludge gas = largely Methane. Main Sulphur reservoir = Soil & Sediments (Sedimentary cycle)." },
+          { title: "Conventional vs Non-Conventional", body: "Atomic Energy & Fossil Fuels = Conventional. Solar, Wind, Biomass & Geothermal = Non-conventional." },
+          { title: "In-Situ vs Ex-Situ Conservation", body: "In-situ = National Parks & Sanctuaries. Ex-situ = Seed Bank ('genetic insurance'), Zoos, Botanical Gardens." },
+          { title: "Waste Treatment Methods", body: "Conditioning = Physical. Digestion, Composting & Lagooning = Biological. Nuclear waste = Underground disposal." },
+          { title: "Indian Constitution & Environment", body: "Added in 1976 via 42nd Amendment Act under Article 48A and Article 51A." }
+        ],
+        mock: [
+          { q: "Unattached aquatic organisms which live at the air-water interface are known as:", opts: ["Periphyton", "Plankton", "Neuston", "Nekton"], ans: 2, exp: "Neuston live at the air-water interface." },
+          { q: "'Sludge gas' largely consists of:", opts: ["Carbon dioxide", "Sulphur dioxide", "Hydrogen sulphide", "Methane"], ans: 3, exp: "Anaerobic digestion of sewage sludge produces Methane." },
+          { q: "Which one of the following is a conventional source of energy?", opts: ["Wind energy", "Atomic energy", "Solar energy", "Geothermal energy"], ans: 1, exp: "IGNOU classifies Atomic energy and Fossil fuels as conventional." },
+          { q: "Biodiversity hotspots are regions of high:", opts: ["Productivity", "Endemism", "Alien species", "Uniform climate"], ans: 1, exp: "Hotspots are defined by high endemism." },
+          { q: "Which one of the following is a physical treatment of hazardous waste?", opts: ["Conditioning", "Digestion", "Composting", "Lagooning"], ans: 0, exp: "Conditioning is physical; the other three are biological." },
+          { q: "The main reservoir of sulphur in the biosphere is present in:", opts: ["Atmosphere", "Soil and sediments", "Volcanic eruptions", "Organisms"], ans: 1, exp: "Sulphur cycle is a sedimentary cycle (soil and sediments)." },
+          { q: "The provision for environmental protection in our Constitution was made in:", opts: ["1972", "1974", "1976", "1986"], ans: 2, exp: "Added in 1976 via the 42nd Amendment Act (Art. 48A & 51A)." },
+          { q: "Which ex-situ conservation method provides 'genetic insurance'?", opts: ["Tissue culture", "Seed bank", "Translocation", "Cloning"], ans: 1, exp: "Seed banks preserve genetic diversity off-site." },
+          { q: "Using English-only material for non-English communities represents:", opts: ["Geographical inequity", "Social inequity", "Procedural inequity", "Economic inequity"], ans: 2, exp: "Language/access barriers are Procedural Inequity." },
+          { q: "Invasive species in India which causes skin allergies is:", opts: ["Water hyacinth", "Sweet pea", "Congress weed", "Mesquite"], ans: 2, exp: "Congress weed (Parthenium) causes skin allergies." }
+        ]
+      },
+      {
+        code: "BEGAE-182", name: "English Communication Skills", courses: ["BAG", "BCOMG", "BSCG"], pattern: "Descriptive (50 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BEGAE-182.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BEGAE-182.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BEGAE-182.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BEGAE-182.pdf" },
+          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOH/BDP/BEGAE-182.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BEGAE-182.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BEGAE-182.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BEGAE-182.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BEGAE-182.pdf" }
+        ],
+        cheatsheet: [{ title: "7 Cs of Communication", body: "Clear, Concise, Concrete, Correct, Coherent, Complete, Courteous." }, { title: "Non-Verbal Terms", body: "Kinesics (body language), Proxemics (space), Paralanguage (tone)." }],
+        mock: [{ q: "Study of body language and gestures is called:", opts: ["Proxemics", "Kinesics", "Semantics", "Chronemics"], ans: 1, exp: "Kinesics refers to body language and gestures." }]
+      },
+      {
+        code: "BHDAE-182", name: "Hindi Bhasha Aur Sampreshan", courses: ["BAG", "BCOMG", "BSCG"], pattern: "Descriptive (50 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BHDAE-182.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BHDAE-182.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BHDAE-182.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BHDAE-182.pdf" },
+          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOH/BDP/BHDAE-182.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BHDAE-182.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BHDAE-182.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BHDAE-182.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BHDAE-182.pdf" }
+        ],
+        cheatsheet: [{ title: "Sampreshan", body: "Maukhik (Verbal), Likhit (Written), and Amaukhik (Non-verbal)." }],
+        mock: [{ q: "In communication, 'Pratipushti' refers to:", opts: ["Channel", "Feedback", "Encoding", "Noise"], ans: 1, exp: "Pratipushti means Feedback." }]
+      },
+      {
+        code: "BPSC-131", name: "Introduction to Political Theory", courses: ["BAG"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BPSC-131.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BPSC-131.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BPSC-131.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BPSC-131.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BPSC-131.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BPSC-131.pdf" }
+        ],
+        cheatsheet: [{ title: "Isaiah Berlin", body: "Negative Liberty (freedom from interference) vs Positive Liberty (self-mastery)." }],
+        mock: [{ q: "Who authored 'A Theory of Justice' (1971)?", opts: ["Isaiah Berlin", "John Rawls", "Karl Marx", "Robert Nozick"], ans: 1, exp: "John Rawls." }]
+      },
+      {
+        code: "BPSC-132", name: "Indian Government and Politics", courses: ["BAG"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BPSC-132.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BPSC-132.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BPSC-132.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BPSC-132.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BPSC-132.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BPSC-132.pdf" }
+        ],
+        cheatsheet: [{ title: "Rights vs DPSP", body: "Part III (Justiciable) vs Part IV (Non-justiciable principles)." }],
+        mock: [{ q: "DPSP are in which Part of the Indian Constitution?", opts: ["Part II", "Part III", "Part IV", "Part V"], ans: 2, exp: "Part IV (Articles 36–51)." }]
+      },
+      {
+        code: "BHIC-131", name: "History of India (Earliest Times to 300 CE)", courses: ["BAG"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BHIC-131.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BHIC-131.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BHIC-131.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BHIC-131.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BHIC-131.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BHIC-131.pdf" }
+        ],
+        cheatsheet: [{ title: "Mauryan Sources", body: "Arthashastra (Kautilya), Indica (Megasthenes), Ashokan Edicts." }],
+        mock: [{ q: "Who authored 'Indica'?", opts: ["Kautilya", "Megasthenes", "Fa-Hien", "Banabhatta"], ans: 1, exp: "Megasthenes." }]
+      },
+      {
+        code: "BSOC-131", name: "Introduction to Sociology", courses: ["BAG"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BSOC-131.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BSOC-131.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BSOC-131.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BSOC-131.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOSS/BDP/BSOC-131.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOSS/BDP/BSOC-131.pdf" }
+        ],
+        cheatsheet: [{ title: "Founding Fathers", body: "Auguste Comte, Emile Durkheim, Max Weber, Karl Marx." }],
+        mock: [{ q: "Who is regarded as the Father of Sociology?", opts: ["Max Weber", "Auguste Comte", "Emile Durkheim", "Herbert Spencer"], ans: 1, exp: "Auguste Comte." }]
+      },
+      {
+        code: "BEGC-131", name: "Individual and Society", courses: ["BAG"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BEGC-131.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BEGC-131.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BEGC-131.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BEGC-131.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOH/BDP/BEGC-131.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOH/BDP/BEGC-131.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOH/BDP/BEGC-131.pdf" },
+          { session: "June 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202022/SOH/BDP/BEGC-131.pdf" }
+        ],
+        cheatsheet: [{ title: "Exam Structure", body: "Intro + 3 Body Paragraphs + Conclusion for essays; left-aligned formal letters." }],
+        mock: [{ q: "Which voice is preferred in formal reports?", opts: ["Passive Voice", "Exclamatory", "Slang", "Casual"], ans: 0, exp: "Passive voice maintains objectivity." }]
+      },
+      {
+        code: "BCOC-131", name: "Financial Accounting", courses: ["BCOMG"], pattern: "Theory + Numericals (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-131.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-131.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-131.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-131.pdf" }
+        ],
+        cheatsheet: [{ title: "Accounting Equation", body: "Assets = Liabilities + Capital." }, { title: "SLM Formula", body: "(Cost − Scrap) ÷ Useful Life." }],
+        mock: [{ q: "Under which method does book value never hit zero?", opts: ["SLM", "WDV", "Annuity", "Depletion"], ans: 1, exp: "WDV reduces a fixed % of the remaining balance." }]
+      },
+      {
+        code: "BCOC-132", name: "Business Organisation & Management", courses: ["BCOMG"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-132.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-132.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-132.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-132.pdf" }
+        ],
+        cheatsheet: [{ title: "Business Forms", body: "Sole Proprietorship, Partnership, Joint Stock Company, Cooperative, LLP." }],
+        mock: [{ q: "Which form enjoys Perpetual Succession?", opts: ["Sole Proprietorship", "Partnership", "Joint Stock Company", "HUF"], ans: 2, exp: "Joint Stock Company." }]
+      },
+      {
+        code: "BCOC-133", name: "Business Law", courses: ["BCOMG"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-133.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-133.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-133.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-133.pdf" }
+        ],
+        cheatsheet: [{ title: "Section 10 (Contract Act 1872)", body: "Offer + Acceptance, Free Consent, Competent Parties, Lawful Consideration." }],
+        mock: [{ q: "An agreement enforceable by law is a:", opts: ["Promise", "Contract", "Offer", "Void agreement"], ans: 1, exp: "Section 2(h) of the Indian Contract Act." }]
+      },
+      {
+        code: "BCOC-134", name: "Business Mathematics & Statistics", courses: ["BCOMG"], pattern: "Numerical (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCOC-134.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCOC-134.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCOC-134.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCOC-134.pdf" }
+        ],
+        cheatsheet: [{ title: "Empirical Relation", body: "Mode = 3(Median) − 2(Mean)." }],
+        mock: [{ q: "Which index satisfies both Time & Factor Reversal tests?", opts: ["Laspeyres", "Paasche", "Fisher's Ideal Index", "Bowley's"], ans: 2, exp: "Fisher's Ideal Index." }]
+      },
+      {
+        code: "BCS-011", name: "Computer Basics & PC Software", courses: ["BCA"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCS-011.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCS-011.pdf" },
+          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/BCS-011.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/BCS-011.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/BCS-011.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/BCS-011.pdf" }
+        ],
+        cheatsheet: [{ title: "OSI 7 Layers", body: "Physical → Data Link → Network → Transport → Session → Presentation → Application." }],
+        mock: [{ q: "Which OSI layer handles IP addressing?", opts: ["Data Link", "Network", "Transport", "Session"], ans: 1, exp: "Network Layer (Layer 3)." }]
+      },
+      {
+        code: "BCS-012", name: "Basic Mathematics", courses: ["BCA"], pattern: "Numerical (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCS-012.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCS-012.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCS-012.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCS-012.pdf" },
+          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/BCS-012.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/BCS-012.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/BCS-012.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/BCS-012.pdf" }
+        ],
+        cheatsheet: [{ title: "Matrix Inverse", body: "A⁻¹ = adj(A) / |A|, exists only when |A| ≠ 0." }],
+        mock: [{ q: "A square matrix A is invertible iff |A| is:", opts: ["0", "Not equal to 0", "1", "Negative"], ans: 1, exp: "Non-singular matrices have |A| ≠ 0." }]
+      },
+      {
+        code: "MCS-011", name: "Problem Solving & Programming (C)", courses: ["BCA"], pattern: "Coding + Theory (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/MCS-011.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MCS-011.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MCS-011.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MCS-011.pdf" },
+          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/MCS-011.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/MCS-011.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/MCS-011.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/MCS-011.pdf" }
+        ],
+        cheatsheet: [{ title: "Pointers in C", body: "'&' returns memory address; '*' dereferences a pointer." }],
+        mock: [{ q: "In C, which operator returns the memory address?", opts: ["*", "&", "->", "%"], ans: 1, exp: "The '&' operator." }]
+      },
+      {
+        code: "BCS-040", name: "Statistical Techniques", courses: ["BCA"], pattern: "Numerical (50 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/BCS-040.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/BCS-040.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/BCS-040.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/BCS-040.pdf" },
+          { session: "June 2024", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202024/SOCIS/BCA/BCS-040.pdf" },
+          { session: "Dec 2023", url: "https://webservices.ignou.ac.in/Pre-Question/Question%20Paper%20December%202023/SOCIS/BCA/BCS-040.pdf" },
+          { session: "June 2023", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20June%202023/SOCIS/BCA/BCS-040.pdf" },
+          { session: "Dec 2022", url: "https://webservices.ignou.ac.in/pre-question/Question%20Paper%20December%202022/SOCIS/BCA/BCS-040.pdf" }
+        ],
+        cheatsheet: [{ title: "Poisson Distribution", body: "Mean = Variance = λ." }],
+        mock: [{ q: "For a Poisson distribution, Mean and Variance are:", opts: ["Equal", "Zero", "Mean > Variance", "Unrelated"], ans: 0, exp: "Both equal λ." }]
+      },
+      {
+        code: "MMPC-001", name: "Management Functions & Org Processes", courses: ["MBA"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/MMPC-001.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MMPC-001.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MMPC-001.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MMPC-001.pdf" }
+        ],
+        cheatsheet: [{ title: "PODSCORB", body: "Planning, Organizing, Directing, Staffing, Coordinating, Reporting, Budgeting." }],
+        mock: [{ q: "Who is the Father of Scientific Management?", opts: ["Henry Fayol", "F.W. Taylor", "Max Weber", "Elton Mayo"], ans: 1, exp: "F.W. Taylor." }]
+      },
+      {
+        code: "MMPC-002", name: "Human Resource Management", courses: ["MBA"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "June 2026", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2026/MMPC-002.pdf" },
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MMPC-002.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MMPC-002.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MMPC-002.pdf" }
+        ],
+        cheatsheet: [{ title: "Job Description vs Specification", body: "Description = Duties of the job; Specification = Skills required in the person." }],
+        mock: [{ q: "Which appraisal collects feedback from peers, managers, and clients?", opts: ["MBO", "360-Degree Appraisal", "Ranking", "Checklist"], ans: 1, exp: "360-Degree Appraisal." }]
+      },
+      {
+        code: "MCO-01", name: "Organisation Theory & Behaviour", courses: ["MCOM"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MCO-01.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MCO-01.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MCO-01.pdf" }
+        ],
+        cheatsheet: [{ title: "Herzberg's Theory", body: "Hygiene factors prevent dissatisfaction; Motivators create job satisfaction." }],
+        mock: [{ q: "In Herzberg's theory, salary is classified as:", opts: ["Motivator", "Hygiene Factor", "Self-actualizer", "Intrinsic"], ans: 1, exp: "Hygiene Factor." }]
+      },
+      {
+        code: "MCO-04", name: "Business Environment", courses: ["MCOM"], pattern: "Descriptive (100 Marks)",
+        pyqs: [
+          { session: "Dec 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpdec2025/MCO-04.pdf" },
+          { session: "June 2025", url: "https://www.ignou.ac.in/viewFile/ldd/qpjune2025/MCO-04.pdf" },
+          { session: "Dec 2024", url: "https://www.ignou.ac.in/viewFile/ldd/downloads/MCO-04.pdf" }
+        ],
+        cheatsheet: [{ title: "PESTLE", body: "Political, Economic, Social, Technological, Legal, Environmental." }],
+        mock: [{ q: "LPG economic reforms in India were introduced in:", opts: ["1985", "1991", "1995", "2000"], ans: 1, exp: "July 1991." }]
+      }
+    ];
+
+    let activeCourse = "ALL";
+    let searchFilter = "";
+    let mockState = { sub: null, idx: 0, ans: {} };
+
+    function norm(s) { return (s || "").toLowerCase().replace(/[\s\-_]+/g, ""); }
+
+    function selectCourse(course, btn) {
+      activeCourse = course;
+      searchFilter = "";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("clearFilterBtn").style.display = "none";
+      document.querySelectorAll(".course-pill").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      const labels = { ALL: "All Syllabus Papers", BAG: "B.A. / BAG Syllabus Papers", BCOMG: "B.Com / BCOMG Syllabus Papers", BSCG: "B.Sc / BSCG Syllabus Papers", BCA: "BCA Syllabus Papers", MBA: "MBA Syllabus Papers", MCOM: "M.Com Syllabus Papers" };
+      document.getElementById("syllabusHeading").textContent = labels[course];
+      renderSubjects();
+    }
+
+    function handleSearchInput() {
+      const raw = document.getElementById("searchInput").value.trim();
+      const box = document.getElementById("suggestionsBox");
+      if (!raw) { box.classList.remove("open"); return; }
+      const q = norm(raw);
+      const matches = SUBJECTS.filter(s => norm(s.code).includes(q) || norm(s.name).includes(q)).slice(0, 6);
+      box.innerHTML = matches.length ? matches.map(s => `
+        <div class="sug-row" onclick="pickSearch('${s.code}')">
+          <div>
+            <span class="code-tag" style="margin-right:6px;">${s.code}</span>
+            <strong style="font-size:0.86rem;">${s.name}</strong>
+          </div>
+          ${s.paidUrl ? `<a class="btn" style="background:var(--forest);color:#fff;padding:5px 10px;font-size:0.75rem;" href="${s.paidUrl}" target="_blank" onclick="event.stopPropagation()">PDF ₹79 ↗</a>` : `<span style="font-size:0.75rem;color:var(--muted);">View →</span>`}
+        </div>
+      `).join("") : `<div style="padding:12px 14px;font-size:0.84rem;color:var(--muted);">No matching subject found.</div>`;
+      box.classList.add("open");
+    }
+
+    function pickSearch(code) {
+      document.getElementById("suggestionsBox").classList.remove("open");
+      document.getElementById("searchInput").value = code;
+      searchFilter = code;
+      document.getElementById("syllabusHeading").textContent = `Search Result: ${code}`;
+      document.getElementById("clearFilterBtn").style.display = "inline-flex";
+      renderSubjects();
+    }
+
+    function applySearch() {
+      const raw = document.getElementById("searchInput").value.trim();
+      document.getElementById("suggestionsBox").classList.remove("open");
+      if (!raw) { clearSearch(); return; }
+      searchFilter = raw;
+      document.getElementById("syllabusHeading").textContent = `Search Results for "${raw}"`;
+      document.getElementById("clearFilterBtn").style.display = "inline-flex";
+      renderSubjects();
+    }
+
+    function clearSearch() {
+      searchFilter = "";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("clearFilterBtn").style.display = "none";
+      renderSubjects();
+    }
+
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".search-box")) document.getElementById("suggestionsBox").classList.remove("open");
+    });
+
+    function renderSubjects() {
+      const q = norm(searchFilter);
+      const list = SUBJECTS.filter(s => {
+        if (q) return norm(s.code).includes(q) || norm(s.name).includes(q);
+        return activeCourse === "ALL" || s.courses.includes(activeCourse);
+      });
+
+      document.getElementById("subjectsGrid").innerHTML = list.length ? list.map(s => `
+        <div class="card">
+          <div class="card-top">
+            <span class="code-tag">${s.code}</span>
+            <span class="pattern-tag">${s.pattern}</span>
+          </div>
+          <h3 style="font-size:1.12rem;">${s.name}</h3>
+          <div class="pyq-list">
+            ${s.pyqs.map(p => `<a class="pyq-chip" href="${p.url}" target="_blank" rel="noopener">📄 ${p.session}</a>`).join("")}
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-dark" style="flex:1;" onclick="openMock('${s.code}')">Free Mock</button>
+            <button class="btn btn-outline" style="flex:1;" onclick="openSheet('${s.code}')">Cheat Sheet</button>
+            ${s.paidUrl ? `<a class="btn btn-buy" href="${s.paidUrl}" target="_blank" rel="noopener">🔥 ${s.paidLabel} ↗</a>` : ''}
+          </div>
+        </div>
+      `).join("") : `<div class="card" style="grid-column:1/-1; text-align:center; color:var(--muted);">No syllabus papers match your search.</div>`;
+    }
+
+    /* MODAL: CHEAT SHEET */
+    function openSheet(code) {
+      const s = SUBJECTS.find(x => x.code === code);
+      document.getElementById("modalContent").innerHTML = `
+        <div class="modal-head">
+          <div><span class="code-tag">${s.code}</span><h2 style="margin-top:6px;">${s.name} — Cheat Sheet</h2></div>
+          <button class="close-btn" onclick="closeModal()">✕</button>
+        </div>
+        ${s.cheatsheet.map(c => `<div class="sheet-card"><h4>${c.title}</h4><p>${c.body}</p></div>`).join("")}
+        ${s.paidUrl ? `<a class="btn btn-buy" style="margin-top:14px;" href="${s.paidUrl}" target="_blank" rel="noopener">🔥 ${s.paidLabel} ↗</a>` : ''}
+      `;
+      document.getElementById("modalBg").classList.add("open");
+    }
+
+    /* MODAL: CBT MOCK TEST */
+    function openMock(code) {
+      mockState = { sub: SUBJECTS.find(x => x.code === code), idx: 0, ans: {} };
+      renderMockQuestion();
+      document.getElementById("modalBg").classList.add("open");
+    }
+
+    function renderMockQuestion() {
+      const s = mockState.sub, qs = s.mock, q = qs[mockState.idx];
+      const letters = ["A", "B", "C", "D"];
+      document.getElementById("modalContent").innerHTML = `
+        <div class="modal-head">
+          <div><span class="code-tag">${s.code}</span> <strong style="margin-left:8px;">Q ${mockState.idx + 1} / ${qs.length}</strong></div>
+          <button class="close-btn" onclick="closeModal()">✕</button>
+        </div>
+        <h3 style="font-size:1.1rem; margin-bottom:16px; line-height:1.45;">${q.q}</h3>
+        ${q.opts.map((o, i) => `
+          <button class="opt-btn ${mockState.ans[mockState.idx] === i ? 'selected' : ''}" onclick="mockState.ans[${mockState.idx}]=${i}; renderMockQuestion()">
+            <strong>${letters[i]}.</strong> <span>${o}</span>
+          </button>
+        `).join("")}
+        <div style="display:flex; justify-content:space-between; margin-top:18px;">
+          <button class="btn btn-outline" ${mockState.idx === 0 ? 'disabled' : ''} onclick="mockState.idx--; renderMockQuestion()">← Prev</button>
+          ${mockState.idx < qs.length - 1
+            ? `<button class="btn btn-dark" onclick="mockState.idx++; renderMockQuestion()">Next →</button>`
+            : `<button class="btn" style="background:var(--forest);color:#fff;" onclick="submitMock()">Submit Test ✓</button>`}
+        </div>
+      `;
+    }
+
+    function submitMock() {
+      const s = mockState.sub, qs = s.mock;
+      let score = 0;
+      qs.forEach((q, i) => { if (mockState.ans[i] === q.ans) score++; });
+      document.getElementById("modalContent").innerHTML = `
+        <div class="modal-head">
+          <div><span class="code-tag">${s.code}</span><h2 style="margin-top:6px;">Score: ${score} / ${qs.length}</h2></div>
+          <button class="close-btn" onclick="closeModal()">✕</button>
+        </div>
+        ${s.paidUrl ? `<a class="btn btn-buy" style="margin-bottom:18px;" href="${s.paidUrl}" target="_blank" rel="noopener">🔥 ${s.paidLabel} ↗</a>` : ''}
+        ${qs.map((q, i) => {
+          const ok = mockState.ans[i] === q.ans;
+          return `<div class="sheet-card" style="border-left-color:${ok ? 'var(--forest)' : 'var(--terracotta)'}">
+            <h4>Q${i + 1}. ${q.q}</h4>
+            <p><strong>Correct:</strong> ${q.opts[q.ans]} — ${q.exp}</p>
+          </div>`;
+        }).join("")}
+      `;
+    }
+
+    function closeModal() { document.getElementById("modalBg").classList.remove("open"); }
+
+    renderSubjects();
+  </script>
+</body>
+</html>
